@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class KingCup implements Runnable {
+
     public byte id;
     public List<Player> players_attack;
     public String name1;
@@ -42,8 +43,8 @@ public class KingCup implements Runnable {
     public static int count;
     public static Thread threadKingCup;
     public static long NEXT_MATCHES;
+
     public KingCup(final Player p1, final Player p2) {
-        System.out.println("KingCup");
         this.countMatch = 0;
         this.id = ++idBase;
         this.name1 = p1.name;
@@ -63,7 +64,6 @@ public class KingCup implements Runnable {
     }
 
     public KingCup() {
-        System.out.println("KingCupduoi");
         count = 0;
         idBase = -1;
         kingCups = new ArrayList<>();
@@ -104,6 +104,10 @@ public class KingCup implements Runnable {
         while (running) {
             if (System.currentTimeMillis() < totalTime) {
                 if (count < 10 && NEXT_MATCHES < System.currentTimeMillis()) {
+                    count += 1;
+                    idBase = -1;
+                    NEXT_MATCHES = System.currentTimeMillis() + TIME_WAR + TIME_BETWEEN_MATCH;
+
                     ArrayList<Player> gr_65_74 = KingCupManager.setGroup(KingCupManager.group_65_74);
                     ArrayList<Player> gr_75_84 = KingCupManager.setGroup(KingCupManager.group_75_84);
                     ArrayList<Player> gr_85_94 = KingCupManager.setGroup(KingCupManager.group_85_94);
@@ -112,21 +116,13 @@ public class KingCup implements Runnable {
                     ArrayList<Player> gr_115_124 = KingCupManager.setGroup(KingCupManager.group_115_124);
                     ArrayList<Player> gr_125_139 = KingCupManager.setGroup(KingCupManager.group_125_139);
 
-                    try {
-                        randomPk(gr_65_74);
-                        randomPk(gr_75_84);
-                        randomPk(gr_85_94);
-                        randomPk(gr_95_104);
-                        randomPk(gr_105_114);
-                        randomPk(gr_115_124);
-                        randomPk(gr_125_139);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    } finally {
-                        count += 1;
-                        idBase = -1;
-                        NEXT_MATCHES = System.currentTimeMillis() + TIME_WAR + TIME_BETWEEN_MATCH;
-                    }
+                    randomPk(gr_65_74);
+                    randomPk(gr_75_84);
+                    randomPk(gr_85_94);
+                    randomPk(gr_95_104);
+                    randomPk(gr_105_114);
+                    randomPk(gr_115_124);
+                    randomPk(gr_125_139);
                 }
             } else {
                 close();
@@ -134,13 +130,12 @@ public class KingCup implements Runnable {
             try {
                 Thread.sleep(200L);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }
 
     public synchronized void update() throws IOException {
-        System.out.println("update");
         if (finish) {
             return;
         }
@@ -201,15 +196,15 @@ public class KingCup implements Runnable {
             }
         }
     }
+
     public void end_round() throws IOException {
-        System.out.println("end_round");
         countMatch++;
         refresh();
         timeWait = System.currentTimeMillis() + 7000L;
         sendTile();
     }
+
     public void end_match() throws IOException {
-        System.out.println("end_match");
         finish = true;
         refresh();
         timeWait = System.currentTimeMillis() + 7000L;
@@ -217,14 +212,12 @@ public class KingCup implements Runnable {
     }
 
     public void send_notify(String txt) throws IOException {
-        System.out.println("send_notify");
         for (Player viewer : maps.players) {
             Service.send_notice_nobox_white(viewer.conn, txt);
         }
     }
 
     public synchronized void refresh() throws IOException {
-        System.out.println("refresh");
         for (Player p : players_attack) {
             if (p != null) {
                 p.isDie = false;
@@ -262,7 +255,6 @@ public class KingCup implements Runnable {
     }
 
     public synchronized void finish() throws IOException {
-        System.out.println("finish");
         if (finish) {
             if (timeWait < System.currentTimeMillis()) {
                 for (int i = 0; i < maps.players.size(); i++) {
@@ -284,7 +276,6 @@ public class KingCup implements Runnable {
     }
 
     public void getMapPk(final Player p1, final Player p2) throws IOException {
-        System.out.println("getMapPk");
         if (p1 != null && p2 != null) {
             p1.countWin = 0;
             p2.countWin = 0;
@@ -303,28 +294,31 @@ public class KingCup implements Runnable {
         }
     }
 
-    public static void randomPk(ArrayList<Player> group) throws IOException {
-        System.out.println("randompk");
-        if (group != null) {
-            Collections.shuffle(group);
-            while (group.size() > 0) {
-                if (group.size() == 1) {
-                    Player p = group.get(0);
-                    p.point_king_cup += 30;
-                    Service.send_notice_box(p.conn, "Không tìm thấy đối thủ bạn nhận được 30 điểm");
-                    group.remove(0);
-                    break;
+    public static void randomPk(ArrayList<Player> group) {
+        try {
+            if (group != null) {
+                Collections.shuffle(group);
+                while (!group.isEmpty()) {
+                    if (group.size() == 1) {
+                        Player p = group.get(0);
+                        p.point_king_cup += 30;
+                        Service.send_notice_box(p.conn, "Không tìm thấy đối thủ bạn nhận được 30 điểm");
+                        group.remove(0);
+                        break;
+                    }
+                    int c1 = Util.random(group.size());
+                    final Player p1 = group.get(c1);
+                    group.remove(c1);
+                    int c2 = Util.random(group.size());
+                    final Player p2 = group.get(c2);
+                    group.remove(c2);
+                    KingCup ld = new KingCup(p1, p2);
+                    KingCup.kingCups.add(ld);
+                    ld.getMapPk(p1, p2);
                 }
-                int c1 = Util.random(group.size());
-                final Player p1 = group.get(c1);
-                group.remove(c1);
-                int c2 = Util.random(group.size());
-                final Player p2 = group.get(c2);
-                group.remove(c2);
-                KingCup ld = new KingCup(p1, p2);
-                KingCup.kingCups.add(ld);
-                ld.getMapPk(p1, p2);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

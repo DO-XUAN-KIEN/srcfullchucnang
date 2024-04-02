@@ -222,11 +222,11 @@ public class ServerManager implements Runnable {
                             Service.npcChat(map, -82, "Lôi đài đang trong thời gian nghỉ giữa 2 mùa");
                         }
                     }
-                    if (KingCup.kingCup != null && KingCup.count < 10 && sec % 9 == 0) {
+                    if (KingCup.kingCup != null && KingCup.count < 10 && sec % 10 == 0) {
                         Map[] tapKet = Map.get_map_by_id(100);
                         int time = (int) ((KingCup.NEXT_MATCHES - System.currentTimeMillis()) / 1000);
                         for (Map map : tapKet) {
-                            Service.npcChat(map, -82, String.format("Trận đấu bắt đầu sau %s giây.", time));
+                            Service.npcChat(map, -82, String.format("Hiệp đấu " + (KingCup.count + 1) + " bắt đầu sau %s giây.", time));
                         }
                     }
 
