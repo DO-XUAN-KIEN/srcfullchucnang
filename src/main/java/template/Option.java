@@ -21,9 +21,9 @@ public class Option {
 //	}
 
     public Option(int id, int param) {
-		this.id = (byte) id;
-		this.param = param;
-	}
+        this.id = (byte) id;
+        this.param = param;
+    }
 
     public static Option createOpItemStar(int idOption, short idItem) {
         Option newOP = null;
@@ -96,7 +96,7 @@ public class Option {
 
         if (this.id == 81 || this.id == 86 || this.id == 88 || this.id == 77 || this.id == 79) // giây dòng vip
         {
-            return (int) (parbuffer * tier * 0.05);
+            return (int) (parbuffer * tier * 0.07);
         }
         if (this.id == 85 || this.id == 87 || this.id == 80 || this.id == 82) // dòng vip
         {

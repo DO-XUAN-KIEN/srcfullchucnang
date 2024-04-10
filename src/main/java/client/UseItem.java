@@ -14,17 +14,7 @@ import map.LeaveItemMap;
 import map.MapService;
 import map.Vgo;
 import map.Map;
-import template.EffTemplate;
-import template.Item3;
-import template.Item47;
-import template.ItemTemplate3;
-import template.ItemTemplate4;
-import template.ItemTemplate7;
-import template.Level;
-import template.Option;
-import template.Pet_di_buon;
-import template.Pet_di_buon_manager;
-import template.box_item_template;
+import template.*;
 
 public class UseItem {
 
@@ -144,7 +134,9 @@ public class UseItem {
             case 1:
             case 25:
             case 2: {
-                if (conn.p.time_use_poition_hp < System.currentTimeMillis()) {
+                EffTemplate vet_thuong_sau = conn.p.get_EffDefault(StrucEff.VET_THUONG_SAU);
+                EffTemplate te_cong = conn.p.get_EffDefault(StrucEff.TE_CONG);
+                if (conn.p.time_use_poition_hp < System.currentTimeMillis() && vet_thuong_sau == null && te_cong == null) {
                     conn.p.time_use_poition_hp = System.currentTimeMillis() + 2000L;
                     conn.p.item.remove(4, id_potion, 1);
                     int param = ItemTemplate4.item.get(id_potion).getValue();
@@ -698,7 +690,7 @@ public class UseItem {
                 conn.p.item.add_item_bag47(7, itbag2);
                 //
                 conn.p.update_vang(quant3_);
-                Log.gI().add_log(conn.p.name, "Nhận " + quant3_ + " từ rương vàng");
+             //   Log.gI().add_log(conn.p.name, "Nhận " + quant3_ + " từ rương vàng");
                 //
                 conn.p.item.char_inventory(7);
                 conn.p.item.remove(4, id_potion, 1);
@@ -755,7 +747,7 @@ public class UseItem {
                 conn.p.item.add_item_bag47(7, itbag2);
                 //
                 conn.p.update_vang(quant3_);
-                Log.gI().add_log(conn.p.name, "Nhận " + quant3_ + " từ rương boss phe");
+              //  Log.gI().add_log(conn.p.name, "Nhận " + quant3_ + " từ rương boss phe");
                 //
                 conn.p.item.char_inventory(7);
                 conn.p.item.remove(4, id_potion, 1);

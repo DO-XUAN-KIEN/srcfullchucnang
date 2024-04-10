@@ -312,7 +312,7 @@ public class Process_Yes_no_box {
                         return;
                     }
                     conn.p.update_vang(-vang_req);
-                    Log.gI().add_log(conn.p.name, "Trừ " + vang_req + " nâng nhẫn cưới");
+              //      Log.gI().add_log(conn.p.name, "Trừ " + vang_req + " nâng nhẫn cưới");
                     conn.p.update_ngoc(-ngoc_req);
                     conn.p.item.char_inventory(5);
                     boolean suc = 80 > Util.random(100);

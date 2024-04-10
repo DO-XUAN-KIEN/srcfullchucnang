@@ -1445,7 +1445,7 @@ public class MenuController {
                     }
                     if (vang_recei > 0) {
                         conn.p.update_vang(vang_recei);
-                        Log.gI().add_log(conn.p.name, "Nhận " + vang_recei + " đi cướp");
+                     //   Log.gI().add_log(conn.p.name, "Nhận " + vang_recei + " đi cướp");
                         conn.p.item.char_inventory(5);
                         //
                         Message mout = new Message(8);
@@ -1538,7 +1538,7 @@ public class MenuController {
                     }
                     if (vang_recei > 0) {
                         conn.p.update_vang(vang_recei);
-                        Log.gI().add_log(conn.p.name, "Nhận " + vang_recei + " đi buôn");
+                      //  Log.gI().add_log(conn.p.name, "Nhận " + vang_recei + " đi buôn");
                         conn.p.item.char_inventory(5);
                         //
                         Message mout = new Message(8);
@@ -2192,7 +2192,7 @@ public class MenuController {
             return;
         }
         conn.p.update_ngoc(-300);
-        Log.gI().add_log(conn.p.name, "hết 300 ngọc");
+      //  Log.gI().add_log(conn.p.name, "hết 300 ngọc");
         Item3 it_process = null;
         for (int i = 0; i < conn.p.item.bag3.length; i++) {
             Item3 it = conn.p.item.bag3[i];
@@ -3826,6 +3826,100 @@ public class MenuController {
                         "nhập mật khẩu mới", "nhập lại mật khẩu mới"});
                 break;
             }
+//            case 7: {
+//                short id_3, id_0, id_4, id_e, id_n, id_d, id_1, id_5;
+//                id_3 = 464;id_0 = 465;id_4 = 466;id_e = 467;id_n = 468;id_d = 468;id_1 = 469;id_5 = 470;
+//                if (conn.p.item.total_item_by_id(7,id_3) <= 0 ||
+//                        conn.p.item.total_item_by_id(7,id_0) <= 0 ||
+//                        conn.p.item.total_item_by_id(7,id_4) <= 0 ||
+//                        conn.p.item.total_item_by_id(7,id_e) <= 0 ||
+//                        conn.p.item.total_item_by_id(7,id_n) <= 0 ||
+//                        conn.p.item.total_item_by_id(7,id_d) <= 0 ||
+//                        conn.p.item.total_item_by_id(7,id_1) <= 0 ||
+//                        conn.p.item.total_item_by_id(7,id_5) <= 0) {
+//                    Service.send_notice_box(conn, "Đi tập hợp đủ 7 viên ngọc rồng đi");
+//                    return;
+//                }
+//                if (conn.p.get_vang() < 50_000_000){
+//                    Service.send_notice_box(conn, "Không đủ 50m vàng");
+//                    return;
+//                }
+//                List<box_item_template> ids = new ArrayList<>();
+//                List<Integer> it7 = new ArrayList<>(java.util.Arrays.asList(356, 361, 366, 371, 376, 381));
+//                List<Integer> it7_vip = new ArrayList<>(java.util.Arrays.asList(471, 45, 351));
+//                conn.p.update_vang(-50_000_000);
+//                conn.p.item.remove(7, id_3, 1);
+//                conn.p.item.remove(7, id_0, 1);
+//                conn.p.item.remove(7, id_4, 1);
+//                conn.p.item.remove(7, id_e, 1);
+//                conn.p.item.remove(7, id_n, 1);
+//                conn.p.item.remove(7, id_d, 1);
+//                conn.p.item.remove(7, id_1, 1);
+//                conn.p.item.remove(7, id_5, 1);
+//                for (int i = 0; i < 5; i++) {
+//                    int ran = Util.random(1, 100);
+//                    if (ran < 20 ) {
+//                        short id = Util.random(it7, new ArrayList<>()).shortValue();
+//                        short quant = 1;
+//                        ids.add(new box_item_template(id, quant, (byte) 7));
+//                        conn.p.item.add_item_bag47(id, quant, (byte) 7);
+//                    } else if (ran < 30) {
+//                        short id = Util.random(it7_vip, new ArrayList<>()).shortValue();
+//                        short quant = 5;
+//                        ids.add(new box_item_template(id, quant, (byte) 7));
+//                        conn.p.item.add_item_bag47(id, quant, (byte) 7);
+//                    } else if (ran < 50) {
+//                        short id = 318;
+//                        short quant = 10;
+//                        ids.add(new box_item_template(id, quant, (byte) 4));
+//                        conn.p.item.add_item_bag47(id, quant, (byte) 4);
+//                    } else if (ran > 99.9) {
+//                        short[] allowedIds = {4761, 4626};
+//                        short iditem = allowedIds[Util.random(0, allowedIds.length - 1)];
+//                        Item3 itbag = new Item3();
+//                        itbag.id = iditem;
+//                        itbag.name = ItemTemplate3.item.get(iditem).getName();
+//                        itbag.clazz = ItemTemplate3.item.get(iditem).getClazz();
+//                        itbag.type = ItemTemplate3.item.get(iditem).getType();
+//                        itbag.level = ItemTemplate3.item.get(iditem).getLevel();
+//                        itbag.icon = ItemTemplate3.item.get(iditem).getIcon();
+//                        itbag.op = new ArrayList<>();
+//                        itbag.op.addAll(ItemTemplate3.item.get(iditem).getOp());
+//                        itbag.color = ItemTemplate3.item.get(iditem).getColor();
+//                        itbag.part = ItemTemplate3.item.get(iditem).getPart();
+//                        itbag.tier = 0;
+//                        itbag.islock = false;
+//                        itbag.time_use = 0;
+//                        itbag.expiry_date = System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 15;
+//                        conn.p.item.add_item_bag3(itbag);
+//                        conn.p.item.char_inventory(5);
+//                        ids.add(new box_item_template(iditem, (short) 1, (byte) 3));
+//                    } else if (ran > 99.999) {
+//                        short[] allowedIds = {4587, 4588, 4589, 4590};
+//                        short iditem = allowedIds[Util.random(0, allowedIds.length - 1)];
+//                        Item3 itbag = new Item3();
+//                        itbag.id = iditem;
+//                        itbag.name = ItemTemplate3.item.get(iditem).getName();
+//                        itbag.clazz = ItemTemplate3.item.get(iditem).getClazz();
+//                        itbag.type = ItemTemplate3.item.get(iditem).getType();
+//                        itbag.level = ItemTemplate3.item.get(iditem).getLevel();
+//                        itbag.icon = ItemTemplate3.item.get(iditem).getIcon();
+//                        itbag.op = new ArrayList<>();
+//                        itbag.op.addAll(ItemTemplate3.item.get(iditem).getOp());
+//                        itbag.color = ItemTemplate3.item.get(iditem).getColor();
+//                        itbag.part = ItemTemplate3.item.get(iditem).getPart();
+//                        itbag.op = ItemTemplate3.item.get(iditem).getOp();
+//                        itbag.tier = 0;
+//                        itbag.islock = true;
+//                        itbag.time_use = 0;
+//                        conn.p.item.add_item_bag3(itbag);
+//                        conn.p.item.char_inventory(5);
+//                        ids.add(new box_item_template(iditem, (short) 1, (byte) 3));
+//                    }
+//                }
+//                Service.Show_open_box_notice_item(conn.p, "Bạn nhận được", ids);
+//                break;
+//            }
             default: {
                 Service.send_notice_box(conn, "Chưa có chức năng");
                 break;

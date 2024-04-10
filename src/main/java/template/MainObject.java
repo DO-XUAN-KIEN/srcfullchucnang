@@ -1017,7 +1017,7 @@ public class MainObject {
                 dame = Util.random(focus.hp / 10, focus.hp / 8);
             }
             if (focus.isMobDiBuon()) {
-                dame = focus.get_HpMax() * 5L / 100;
+                dame = focus.hp_max * 5 / 100;
             }
             focus.hp -= dame;
             if (focus.isBoss() && mob != null && ObjAtk.isPlayer()) {
@@ -1043,7 +1043,7 @@ public class MainObject {
                     }
                     focus.SetDie(map, ObjAtk);
                     if (focus != null && focus.template != null
-                            && !focus.isPlayer() && !focus.isBot() && focus.template.mob_id >= 89 && focus.template.mob_id <= 92) { // house chien truong
+                            && !focus.isMobDiBuon() && !focus.isPlayer() && !focus.isBot() && focus.template.mob_id >= 89 && focus.template.mob_id <= 92) { // house chien truong
                         p.update_point_arena(20);
                         Manager.gI().chatKTGprocess("@Server : " + p.name + " đã đánh sập " + focus.template.name);
                         ChienTruong.gI().update_house_die(focus.template.mob_id);

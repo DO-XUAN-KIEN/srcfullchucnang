@@ -169,7 +169,7 @@ public class TextFromClient {
                     return;
                 }
                 conn.p.update_vang(-vang_required);
-                Log.gI().add_log(conn.p.name, "Trừ " + vang_required + " tinh luyện ngọc");
+             //   Log.gI().add_log(conn.p.name, "Trừ " + vang_required + " tinh luyện ngọc");
                 Item47 it = new Item47();
                 it.id = (short) (conn.p.id_ngoc_tinh_luyen + 30);
                 it.quantity = (short) quant;
@@ -625,7 +625,7 @@ public class TextFromClient {
                     }
 
                     conn.p.update_vang(-(quant * 5000));
-                    Log.gI().add_log(conn.p.name, "Trừ " + (quant * 5000) + " tinh hợp nguyên liệu");
+                 //   Log.gI().add_log(conn.p.name, "Trừ " + (quant * 5000) + " tinh hợp nguyên liệu");
                     conn.p.item.remove(7, conn.p.fusion_material_medal_id, (quant * 5));
                     Item47 it = new Item47();
                     it.id = id_next_material;
@@ -725,7 +725,7 @@ public class TextFromClient {
                         }
                     }
                     conn.p.update_vang(-(quant * 20_000));
-                    Log.gI().add_log(conn.p.name, "Trừ " + (quant * 20000) + " đổi hộp đồ chơi");
+                 ///   Log.gI().add_log(conn.p.name, "Trừ " + (quant * 20000) + " đổi hộp đồ chơi");
                     for (short item : id) {
                         conn.p.item.remove(4, item, quant * 50);
                     }
@@ -852,7 +852,7 @@ public class TextFromClient {
                     return;
                 }
                 if (conn.p.update_coin(-coin_exchange)) {
-                    Log.gI().add_log(conn.p.name, "Nhận " + ((coin_exchange * 1_000) * Manager.gI().giakmgold) + " từ đổi coin ra vàng");
+                //    Log.gI().add_log(conn.p.name, "Nhận " + ((coin_exchange * 1_000) * Manager.gI().giakmgold) + " từ đổi coin ra vàng");
                     conn.p.update_vang((long) ((coin_exchange * 1_000) * Manager.gI().giakmgold));
                     conn.p.item.char_inventory(5);
                     Service.send_notice_box(conn, "Đổi thành công" + (coin_exchange * 1_000) * Manager.gI().giakmgold + "vàng");
@@ -892,7 +892,7 @@ public class TextFromClient {
                     return;
                 }
                 conn.p.update_vang(-vang_required);
-                Log.gI().add_log(conn.p.name, "Trừ " + vang_required + " hợp ngọc");
+             //   Log.gI().add_log(conn.p.name, "Trừ " + vang_required + " hợp ngọc");
                 conn.p.item.remove(7, conn.p.id_hop_ngoc, (quant * 5));
                 Item47 itbag = new Item47();
                 itbag.id = (short) (conn.p.id_hop_ngoc + 1);
@@ -1043,7 +1043,7 @@ public class TextFromClient {
                     }
                     if (Clan.create_clan(conn, value[0], value[1])) {
                         conn.p.update_ngoc(-20000);
-                        Log.gI().add_log(conn.p.name, "Tạo bang mất 20000 ngọc");
+                 //       Log.gI().add_log(conn.p.name, "Tạo bang mất 20000 ngọc");
                         conn.p.item.char_inventory(5);
                         Service.send_box_UI(conn, 20);
                         Service.send_notice_box(conn, "Hãy chọn một icon bất kỳ đặt làm biểu tượng");
@@ -1151,7 +1151,7 @@ public class TextFromClient {
                     conn.p.update_ngoc(-(vag));
                 } else {
                     conn.p.update_vang(-(vag));
-                    Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi bó sen");
+                //    Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi bó sen");
                 }
                 Item47 itbag = new Item47();
                 itbag.id = id_moi;
@@ -1358,7 +1358,7 @@ public class TextFromClient {
                     return;
                 }
                 conn.p.update_vang(-(vag));
-                Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi bánh trưng");
+              //  Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi bánh trưng");
                 Item47 itbag = new Item47();
                 itbag.id = id_banhtrung;
                 itbag.quantity = (short) quant;
@@ -1500,7 +1500,7 @@ public class TextFromClient {
                     return;
                 }
                 conn.p.update_vang(-(vag));
-                Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi bánh dày");
+              //  Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi bánh dày");
                 Item47 itbag = new Item47();
                 itbag.id = id_banhday;
                 itbag.quantity = (short) quant;
@@ -1608,7 +1608,7 @@ public class TextFromClient {
                     return;
                 }
                 conn.p.update_vang(-(vag));
-                Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi hộp quà lộc");
+               // Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi hộp quà lộc");
                 Item47 itbag = new Item47();
                 itbag.id = id_hopqualoc;
                 itbag.quantity = (short) quant;
@@ -1672,7 +1672,7 @@ public class TextFromClient {
                     return;
                 }
                 conn.p.update_vang(-(vag));
-                 Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi pháo hoa");
+              //   Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi pháo hoa");
                 Item47 itbag = new Item47();
                 itbag.id = id_phaohoa;
                 itbag.quantity = (short) quant;
@@ -1731,7 +1731,7 @@ public class TextFromClient {
                     return;
                 }
                 conn.p.update_vang(-(vag));
-                Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi lồng đèn");
+              //  Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi lồng đèn");
                 Item47 itbag = new Item47();
                 itbag.id = id_longden;
                 itbag.quantity = (short) quant;
@@ -1972,7 +1972,7 @@ public class TextFromClient {
                     return;
                 }
                 conn.p.update_vang(-(vag));
-                Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi rương huyền bí");
+             //   Log.gI().add_log(conn.p.name, "Trừ " + vag + " đổi rương huyền bí");
                 Item47 itbag = new Item47();
                 itbag.id = id_ruonghuyenbi;
                 itbag.quantity = (short) quant;

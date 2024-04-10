@@ -2134,14 +2134,14 @@ public class MapService {
                 }
                 mout.cleanup();
                 Pet_di_buon_manager.remove(pet_di_buon.name);
-                pet_di_buon.p.pet_di_buon = null;
+                pet_di_buon.playerForPetDiBuon.pet_di_buon = null;
                 for (int j = 0; j < pet_di_buon.item.size(); j++) {
                     ItemMap it_leave = new ItemMap();
                     it_leave.id_item = (short) pet_di_buon.item.get(j);
                     it_leave.color = (byte) 0;
                     it_leave.quantity = 1;
                     it_leave.category = 3;
-                    it_leave.idmaster = (short) pet_di_buon.p.index;
+                    it_leave.idmaster = (short) pet_di_buon.playerForPetDiBuon.index;
                     it_leave.op = new ArrayList<>();
                     it_leave.time_exist = System.currentTimeMillis() + 60_000L;
                     it_leave.time_pick = System.currentTimeMillis() + 1_500L;

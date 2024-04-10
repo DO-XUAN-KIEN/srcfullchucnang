@@ -1815,8 +1815,8 @@ public class Service {
                     case 4:
                     case 7: {
                         int quant = conn.p.item.total_item_by_id(type, id);
-                        conn.p.update_vang(quant * 5L);
-                        Log.gI().add_log(conn.p.name, "Nhận " + quant * 5 + " bán đồ cho lisa");
+                        conn.p.update_vang(quant * 0);
+                        Log.gI().add_log(conn.p.name, "Nhận " + quant * 0 + " bán đồ cho lisa");
                         conn.p.item.remove(type, id, quant);
                         conn.p.item.char_inventory(type);
 //                        conn.p.item.char_inventory(4);

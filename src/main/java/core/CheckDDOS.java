@@ -82,7 +82,7 @@ public class CheckDDOS {
             return true;
         } else if (errorCount >= 20) {
             //System.out.println("core.CheckDDOS.canAccess()-----"+errorCount+"---------"+(currentTime - lastAccessTime));
-            blockIP(ipAddress, "" + (currentTime - lastAccessTime));
+            //blockIP(ipAddress, "" + (currentTime - lastAccessTime));
 
             ipErrorCount.remove(ipAddress);
             ipLastAccessTime.remove(ipAddress);

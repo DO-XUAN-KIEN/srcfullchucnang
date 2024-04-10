@@ -281,7 +281,7 @@ public class Clan {
 
     public void member_contribute_ngoc(Session conn, long value) throws IOException {
         conn.p.update_ngoc(-value);
-        Log.gI().add_log(conn.p.name, "Góp " + Util.number_format(value) + " ngọc bang " + this.name_clan);
+      //  Log.gI().add_log(conn.p.name, "Góp " + Util.number_format(value) + " ngọc bang " + this.name_clan);
         conn.p.item.char_inventory(5);
         this.kimcuong += value;
         this.update_in4_clan_box_notice(conn, 7);
@@ -291,7 +291,7 @@ public class Clan {
 
     public void member_contribute_vang(Session conn, long value) throws IOException {
         conn.p.update_vang(-value);
-        Log.gI().add_log(conn.p.name, "Góp " + Util.number_format(value) + " vàng bang " + this.name_clan);
+      //  Log.gI().add_log(conn.p.name, "Góp " + Util.number_format(value) + " vàng bang " + this.name_clan);
         conn.p.item.char_inventory(5);
         this.vang += value;
         this.update_in4_clan_box_notice(conn, 6);

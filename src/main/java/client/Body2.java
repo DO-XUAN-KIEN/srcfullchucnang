@@ -619,6 +619,10 @@ public class Body2 extends MainObject {
         p.dame_affect_special_sk = 0;
         p.hp = 0;
         p.isDie = true;
+        if (p.type_use_mount < 6 && p.type_use_mount > 10) {
+            p.type_use_mount = -1;
+            map.send_mount(p);
+        }
         p.type_use_mount = -1;
         Player pATK = mainAtk.isPlayer() ? (Player) mainAtk : null;
         if (p.isLiveSquire) {
@@ -662,9 +666,11 @@ public class Body2 extends MainObject {
     public void update(Map map) {
         try {
             if (isDie) return;
-            //<editor-fold defaultstate="collapsed" desc="auto +hp,mp       ...">  
+            //<editor-fold defaultstate="collapsed" desc="auto +hp,mp       ...">
+            EffTemplate vet_thuong_sau = p.get_EffDefault(StrucEff.VET_THUONG_SAU);
+            EffTemplate te_cong = p.get_EffDefault(StrucEff.TE_CONG);
             int percent = p.body.total_skill_param(29) + p.body.total_item_param(29);
-            if (p.time_buff_hp < System.currentTimeMillis()) {
+            if (p.time_buff_hp < System.currentTimeMillis() && vet_thuong_sau == null && te_cong == null) {
                 p.time_buff_hp = System.currentTimeMillis() + 5000L;
                 if (percent > 0 && p.hp < p.body.get_HpMax()) {
                     long param = (((long) p.body.get_HpMax()) * (percent / 100)) / 100;

@@ -33,4 +33,6 @@ public class StrucEff {
     public static final short BongLua = 13;
     public static final short BongLanh = 12;
     public static final short LuLan = 14;
+    public static int VET_THUONG_SAU = 999;
+    public static int TE_CONG = 998;
 }

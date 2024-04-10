@@ -1478,7 +1478,7 @@ public class GameSrc {
                     break;
                 }
             }
-            Log.gI().add_log(conn.p.name, "Tạo cánh " + temp.getName());
+         //   Log.gI().add_log(conn.p.name, "Tạo cánh " + temp.getName());
         } else if (type == 2) {
             if (!conn.p.is_create_wing) {
                 Item3 it = conn.p.item.bag3[id];
@@ -1889,7 +1889,7 @@ public class GameSrc {
                             }
                             Item3 itTrade = p0.item.bag3[p0.my_store.get(i).it_id];
                             conn.p.update_vang(-vang_trade);
-                            Log.gI().add_log(conn.p.name, "Trừ " + vang_trade + " mua đồ của " + p0.name + " khu mua bán");
+                        //    Log.gI().add_log(conn.p.name, "Trừ " + vang_trade + " mua đồ của " + p0.name + " khu mua bán");
                             long thue = (vang_trade / 100) * Manager.thue;
                             if (Manager.ClanThue != null)
                                 Manager.ClanThue.update_vang(thue);
@@ -1897,7 +1897,7 @@ public class GameSrc {
                             vang_trade -= thue;
 
                             p0.update_vang(vang_trade);
-                            Log.gI().add_log(conn.p.name, "Nhận" + vang_trade + " bán đồ cho " + conn.p.name + " khu mua bán");
+                          //  Log.gI().add_log(conn.p.name, "Nhận" + vang_trade + " bán đồ cho " + conn.p.name + " khu mua bán");
 
                             hist.tem3 = itTrade;
                             hist.UpdateGold(p0.get_vang(), conn.p.get_vang());
@@ -1931,14 +1931,14 @@ public class GameSrc {
                                         return;
                                     }
                                     conn.p.update_vang(-vang_trade);
-                                    Log.gI().add_log(conn.p.name, "Trừ " + vang_trade + " mua đồ của " + p0.name + " khu mua bán");
+                                 //   Log.gI().add_log(conn.p.name, "Trừ " + vang_trade + " mua đồ của " + p0.name + " khu mua bán");
                                     long thue = (vang_trade / 100) * Manager.thue;
                                     if (Manager.ClanThue != null)
                                         Manager.ClanThue.update_vang(thue);
                                     //                                Manager.ClanThue.update_vang((vang_trade * Manager.thue) / 100);
                                     vang_trade -= thue;
                                     p0.update_vang(vang_trade);
-                                    Log.gI().add_log(conn.p.name, "Nhận" + vang_trade + " bán đồ cho " + conn.p.name + " khu mua bán");
+                                 //   Log.gI().add_log(conn.p.name, "Nhận" + vang_trade + " bán đồ cho " + conn.p.name + " khu mua bán");
                                     Item47 it_b_add = new Item47();
                                     it_b_add.category = idType;
                                     it_b_add.id = iditem;
@@ -2173,7 +2173,7 @@ public class GameSrc {
                 m.cleanup();
                 //
                 p.update_vang(-vang_total);
-                Log.gI().add_log(p.name, "Trừ " + vang_total + " khảm ngọc");
+              //  Log.gI().add_log(p.name, "Trừ " + vang_total + " khảm ngọc");
                 p.item.remove(7, id_g1, 1);
                 p.item.char_inventory(4);
                 p.item.char_inventory(7);
@@ -2236,7 +2236,7 @@ public class GameSrc {
                         return;
                     }
                     p.update_vang(-((index_ngoc_kham_vao + 1) * 1_000_000L));
-                    Log.gI().add_log(p.name, "Trừ " + ((index_ngoc_kham_vao + 1) * 1_000_000) + " đục lỗ");
+                  //  Log.gI().add_log(p.name, "Trừ " + ((index_ngoc_kham_vao + 1) * 1_000_000) + " đục lỗ");
                     p.item.remove(7, id_g1, 1);
                     if (p.conn.ac_admin > 3 && Manager.BuffAdmin) {
                         suc = true;
@@ -2917,11 +2917,7 @@ public class GameSrc {
                                 m_send.writer().writeByte(1);
                                 short id_material = (short) (material_update_armor[item.tier] + item.id - 4784);
                                 m_send.writer().writeShort(id_material);
-                                if (conn.version >= 270) {
-                                    m_send.writer().writeShort(quantity_update_armor[item.tier]);
-                                } else {
-                                    m_send.writer().writeByte(quantity_update_armor[item.tier]);
-                                }
+                                m_send.writer().writeByte(quantity_update_armor[item.tier]);
                                 conn.addmsg(m_send);
                                 m_send.cleanup();
                             } else {
