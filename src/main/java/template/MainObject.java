@@ -1019,6 +1019,17 @@ public class MainObject {
             if (focus.isMobDiBuon()) {
                 dame = focus.hp_max * 5 / 100;
             }
+            if (focus.isPlayer() && p != null && p.total_item_param((byte) 185) > Util.nextInt(10000)) {
+                Player p_focus = (Player) focus;
+                focus.hp -= p_focus.hp_max * (Util.nextInt(10, 15) / 100);
+                Service.send_notice_nobox_white(p.conn, "Áp đảo");
+            }
+            if (p!= null && focus.isPlayer() && p.total_item_param((byte) 186) > Util.nextInt(10000)) {
+                Player p_focus = (Player) focus;
+                p.hp -= ((Player) p).hp_max * (Util.nextInt(3, 5) / 100);
+                focus.hp += p_focus.hp_max * (Util.nextInt(20, 25) / 100);
+                Service.send_notice_nobox_white(p_focus.conn, "Giáp cốt");
+            }
             focus.hp -= dame;
             if (focus.isBoss() && mob != null && ObjAtk.isPlayer()) {
                 if (!mob.top_dame.containsKey(p.name)) {
@@ -1225,6 +1236,16 @@ public class MainObject {
                                 p.update_vang(vangjoin);
                                 Log.gI().add_log(p.name, "Nhận " + vangjoin + " từ đại bàng");
                                 Service.send_notice_nobox_white(p.conn, "+ " + vangjoin + " vàng");
+                            }
+                            if (focus.isPlayer() && my_pet.get_id() == 4614 && Util.nextInt(100) < 5) {
+                                Player p_focus = (Player) focus;
+                                p_focus.add_EffDefault(StrucEff.VET_THUONG_SAU, 1, 5000);
+                                Service.send_notice_nobox_white(p_focus.conn, "Bạn bị vết thương sâu");
+                            }
+                            if (focus.isPlayer() && my_pet.get_id() == 4626 && Util.nextInt(100) < 5) {
+                                Player p_focus = (Player) focus;
+                                p_focus.add_EffDefault(StrucEff.TE_CONG, 1, 5000);
+                                Service.send_notice_nobox_white(p_focus.conn, "Bạn bị tê cóng");
                             }
                             p.pet_atk_speed = System.currentTimeMillis() + 5000L;
                             Message m = new Message(84);

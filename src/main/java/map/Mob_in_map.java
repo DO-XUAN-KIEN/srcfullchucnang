@@ -116,6 +116,7 @@ public class Mob_in_map extends MainObject {
                 p.quest_daily[2] += 1;
                 Service.send_notice_nobox_white(p.conn, "Nhiệm vụ hàng ngày " + p.quest_daily[2] + "/" + p.quest_daily[3]);
             }
+            p.diemsukien += 1;
             boolean check_mob_roi_ngoc_kham = mob.template.mob_id >= 167 && mob.template.mob_id <= 172;
             if (mob.isBoss()) {
                 map.BossDie(mob);
