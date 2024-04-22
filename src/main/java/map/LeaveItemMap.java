@@ -295,9 +295,9 @@ public class LeaveItemMap {
             short[] id_item_leave3 = new short[]{};
             short[] id_item_leave4 = new short[]{};
             short[] id_item_leave7 = new short[]{};
-            short[] id_item_leave = new short[]{};
-            short[] id_item_leave_boss = new short[]{};
-            short[] id_medal_material = new short[]{};
+//            short[] id_item_leave = new short[]{};
+//            short[] id_item_leave_boss = new short[]{};
+//            short[] id_medal_material = new short[]{};
           //  short id_medal_material = -19;
 
             short sizeRandomMedal = 0;
@@ -444,26 +444,26 @@ public class LeaveItemMap {
                     }
                 }
             }
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 8; i++) {
                 for (short id : id_item_leave7) {
                     leave_item_by_type7(map, id, p, mob.index, p.index);
                 }
             }
-            for (int i = 0; i < 4; i++) {
-                for (short id : id_item_leave_boss) {
-                    leave_item_by_type7(map, id, p, mob.index, p.index);
-                }
-            }
-            for (int i = 0; i < 5; i++) {
-                for (short id : id_item_leave) {
-                    leave_item_by_type7(map, id, p, mob.index, p.index);
-                }
-            }
-            for (int i = 0; i < 3; i++) {
-                for (short id : id_medal_material) {
-                    leave_item_by_type7(map, id, p, mob.index, p.index);
-                }
-            }
+//            for (int i = 0; i < 4; i++) {
+//                for (short id : id_item_leave_boss) {
+//                    leave_item_by_type7(map, id, p, mob.index, p.index);
+//                }
+//            }
+//            for (int i = 0; i < 5; i++) {
+//                for (short id : id_item_leave) {
+//                    leave_item_by_type7(map, id, p, mob.index, p.index);
+//                }
+//            }
+//            for (int i = 0; i < 3; i++) {
+//                for (short id : id_medal_material) {
+//                    leave_item_by_type7(map, id, p, mob.index, p.index);
+//                }
+//            }
             for (int l = 0; l < sizeRandomMedal; l++) {
                 leave_item_by_type7(map, (short) Util.random(136, 146), p, mob.index, p.index);
             }

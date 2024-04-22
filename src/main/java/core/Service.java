@@ -1364,7 +1364,8 @@ public class Service {
         if (p0 == null) {
             send_notice_box(conn, "Kẻ thù đang offline");
         } else {
-            if (p0.map.isMapLangPhuSuong()) {
+            if (p0.map.isMapLangPhuSuong() || p0.map.isMapChienTruong() ||
+                p0.map.isMapChiemThanh() || p0.map.isMapLoiDai()){
                 send_notice_box(conn, "Kẻ thù đang trong khu vực không thể đến");
                 return;
             }
@@ -1626,10 +1627,10 @@ public class Service {
                     send_notice_box(conn, "Không thể cho ăn");
                     return;
                 }
-                His_DelItem hist = new His_DelItem(conn.p.name);
-                hist.Logger = "cho pet ăn";
-                hist.tem3 = conn.p.item.bag3[id_it];
-                hist.Flus();
+//                His_DelItem hist = new His_DelItem(conn.p.name);
+//                hist.Logger = "cho pet ăn";
+//                hist.tem3 = conn.p.item.bag3[id_it];
+//                hist.Flus();
                 conn.p.mypet.get(index_pet).update_exp(3250);
                 conn.p.item.bag3[id_it] = null;
                 conn.p.item.char_inventory(3);

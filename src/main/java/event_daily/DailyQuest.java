@@ -136,7 +136,7 @@ public class DailyQuest {
                 if (((p.item.get_bag_able() > 0) || (p.item.total_item_by_id(7, id_blue) > 0))) {
                     Item47 itbag = new Item47();
                     itbag.id = id_blue;
-                    itbag.quantity = (short) Util.random(0, 2);
+                    itbag.quantity = (short) Util.random(0, 5);
                     itbag.category = 7;
                     p.item.add_item_bag47(7, itbag);
                 }
@@ -144,7 +144,7 @@ public class DailyQuest {
                 if (((p.item.get_bag_able() > 0) || (p.item.total_item_by_id(7, id_yellow) > 0))) {
                     Item47 itbag = new Item47();
                     itbag.id = id_yellow;
-                    itbag.quantity = (short) Util.random(0, 2);
+                    itbag.quantity = (short) Util.random(0, 5);
                     itbag.category = 7;
                     p.item.add_item_bag47(7, itbag);
                 }
@@ -152,7 +152,7 @@ public class DailyQuest {
                 if (((p.item.get_bag_able() > 0) || (p.item.total_item_by_id(7, id_violet) > 0))) {
                     Item47 itbag = new Item47();
                     itbag.id =  id_violet;
-                    itbag.quantity = (short) Util.random(0, 2);
+                    itbag.quantity = (short) Util.random(0, 5);
                     itbag.category = 7;
                     p.item.add_item_bag47(7, itbag);
                 }

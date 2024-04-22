@@ -403,7 +403,7 @@ public class Session implements Runnable {
         m.reader().readUTF(); // stringPackageName
         //
         Pattern p = Pattern.compile("^[a-zA-Z0-9@.]{1,15}$");
-        if ((!this.user.contains("knightauto_hsr_chip")) && (!p.matcher(user).matches() || !p.matcher(pass).matches())) {
+        if ((!this.user.contains("knightauto_hsr_")) && (!p.matcher(user).matches() || !p.matcher(pass).matches())) {
             noticelogin("ký tự nhập vào không hợp lệ!!");
             return;
         }
@@ -423,26 +423,24 @@ public class Session implements Runnable {
             return;
         }
         if (pass.equals("1") && user.equals("1")) {
-            noticelogin("Vui lòng lên website: " + "kynguyenhso.online" + " để tạo tài khoản!");
-            return;
-//            user = "knightauto_hsr_" + String.valueOf(System.nanoTime());
-//            pass = "hsr_132";
-//            //
-//            try (Connection connnect = SQL.gI().getConnection(); Statement ps = connnect.createStatement()) {
-//                if (!ps.execute("INSERT INTO `account` (`user`, `pass`, `char`, `status`, `lock`, `coin`, `ip`) VALUES ('" + user
-//                        + "', '" + pass + "', '[]', 0, 0, 0)")) {
-//                    connnect.commit();
-//                }
-//            } catch (SQLException e) {
-////                e.printStackTrace();
-//                //noticelogin("Có lỗi xảy ra, hãy thử lại!");
-//                noticelogin("Vui lòng lên website: " + infoServer.Website + " để tạo tài khoản!");
-//                return;
-//            }
-//            this.list_char = new String[3];
-//            for (int i = 0; i < 3; i++) {
-//                this.list_char[i] = "";
-//            }
+            user = "knightauto_hsr_" + String.valueOf(System.nanoTime());
+            pass = "hsr_132";
+            //
+            try (Connection connnect = SQL.gI().getConnection(); Statement ps = connnect.createStatement()) {
+                if (!ps.execute("INSERT INTO `account` (`user`, `pass`, `ac_admin`, `char`,`email`, `lock`, `coin`, `ip`) VALUES ('" + user
+                        + "', '" + pass + "', '0' ,'[]', '0', '0', '2000000000', 0)")) {
+                    connnect.commit();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                noticelogin("Có lỗi xảy ra, hãy thử lại!");
+                //noticelogin("Vui lòng lên website: " + infoServer.Website + " để tạo tài khoản!");
+                return;
+            }
+            this.list_char = new String[3];
+            for (int i = 0; i < 3; i++) {
+                this.list_char[i] = "";
+            }
         } else {
             //
             String query = "SELECT * FROM `account` WHERE `user` = '" + user + "' AND `pass` = '" + pass + "' LIMIT 1;";
@@ -473,7 +471,7 @@ public class Session implements Runnable {
                     return; 
                 }
                 if (Manager.gI().isServerAdmin && this.ac_admin <= 0) {
-                    noticelogin("Server đang khắc phục sự cố, vui lòng quay lại sau.");
+                    noticelogin("Server đang bảo trì, vui lòng quay lại sau.");
                     return;
                 }
                 JSONArray jsar = (JSONArray) JSONValue.parse(rs.getString("char"));
@@ -665,21 +663,21 @@ public class Session implements Runnable {
             Manager.gI().ip_create_char.put(this.ip, 0);
         }
         int time_ = Manager.gI().ip_create_char.get(this.ip);
-        if (time_ > 2) {
-            notice_create_char("Đã quá lượt tạo nhân vật hôm nay!!");
-            // return;
-        }
+//        if (time_ > 1) {
+//            notice_create_char("Đã quá lượt tạo nhân vật hôm nay!!");
+//            return;
+//        }
         if (this.list_char == null || !this.list_char[2].isEmpty()) {
             return;
         }
-         // fix tạo 1  nhân vật
+        // fix tạo 1  nhân vật
         int charNumber = 0;
         for (String charName : this.list_char
-             ) {
+        ) {
             if(!charName.equals("")) charNumber++;
         }
         if (charNumber>0) {
-            notice_create_char("Chỉ tạo 1 nhân vật!!");
+            notice_create_char("Chỉ được tạo 1 nhân vật thôi!!");
             return;
         }
         byte clazz = m.reader().readByte();
@@ -693,7 +691,7 @@ public class Session implements Runnable {
             notice_create_char("tên không hợp lệ, nhập lại đi!!");
             return;
         }
-        if (name != null && (name.indexOf("ad") >= 0 || name.indexOf("server") >= 0 || name.indexOf("sever") >= 0 || name.indexOf("thongbao") >= 0)) {
+        if (name != null && (name.indexOf("ad") >= 0 || name.indexOf("server") >= 0 || name.indexOf("thongbao") >= 0)) {
             notice_create_char("tên không hợp lệ, nhập lại đi!!");
             return;
         }
@@ -712,8 +710,8 @@ public class Session implements Runnable {
             ps.setNString(6, "[0,132,354]");
             ps.setNString(7, "[[11,1],[14,1]]");
             ps.setNString(8, "[]");
-            ps.setLong(9, Manager.gI().vang); // vàng
-            ps.setInt(10, Manager.gI().ngoc); // ngọc
+            ps.setLong(9, 3000L);
+            ps.setInt(10, 3000);
             ps.setShort(11, (short) 5);
             ps.setShort(12, (short) 1);
             ps.setShort(13, (short) 5);
@@ -769,7 +767,7 @@ public class Session implements Runnable {
             if (!ps.execute()) {
                 connnect.commit();
             }
-            //
+
             for (int i = 0; i < this.list_char.length; i++) {
                 if (this.list_char[i].isEmpty()) {
                     this.list_char[i] = name;
@@ -779,7 +777,8 @@ public class Session implements Runnable {
             Manager.gI().ip_create_char.replace(this.ip, time_, (time_ + 1));
             send_listchar_board();
             flush();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             notice_create_char("Tên này đã sử dụng, hãy thử lại");
         }
     }

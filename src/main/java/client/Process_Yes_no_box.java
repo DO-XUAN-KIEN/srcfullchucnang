@@ -65,20 +65,20 @@ public class Process_Yes_no_box {
                     if (!conn.p.isOwner) {
                         return;
                     }
-                    if (conn.coin < 100000) {
-                        Service.send_notice_box(conn, "Khong du coin");
+                    if (conn.p.get_ngoc() < 1) {
+                        Service.send_notice_box(conn, "1 ngọc còn dell có thì làm ăn được gì");
                         return;
                     }
-                    if (conn.p.level < 10) {
-                        Service.send_notice_box(conn, "Yeu cau cap do 10");
+                    if (conn.p.level < 30) {
+                        Service.send_notice_box(conn, "Yêu cầu level 30");
                         return;
                     }
                     if (conn.p.squire == null) {
                         Squire.create(conn.p);
                         conn.p.squire = new Squire(conn, conn.p.index);
                         conn.p.squire.load();
-                        conn.p.update_coin(-100000);
-                        Service.send_notice_box(conn, "Nhan thanh cong de tu");
+                        conn.p.update_ngoc(-1);
+                        Service.send_notice_box(conn, "Nhận thành công đệ tử");
                         Squire.callSquire(conn);
                     }
                     break;
@@ -693,11 +693,11 @@ public class Process_Yes_no_box {
 //                    break;
 //                }
                 case 122: { // chuyển hoá
-//                    if((conn.p.item.bag3[conn.p.item_replace].id >= 4587 && conn.p.item.bag3[conn.p.item_replace].id<= 4590) || 
+//                    if((conn.p.item.bag3[conn.p.item_replace].id >= 4587 && conn.p.item.bag3[conn.p.item_replace].id<= 4590) ||
 //                            (conn.p.item.bag3[conn.p.item_replace2].id >= 4587 && conn.p.item.bag3[conn.p.item_replace2].id<= 4590))
 //                    {
 //                        Service.send_notice_box(conn, "Trang bị không phù hợp!");
-//                        return;a
+//                        return;
 //                    }
                     int fee = 50 * conn.p.item.bag3[conn.p.item_replace].tier;
                     if (conn.p.get_ngoc() < fee) {

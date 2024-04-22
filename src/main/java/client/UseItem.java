@@ -816,6 +816,10 @@ public class UseItem {
                     Service.send_notice_nobox_white(conn, "level không phù hợp");
                     return;
                 }
+                if(conn.p.chuyensinh > 0){
+                    Service.send_notice_box(conn,"Đã chuyển sinh thì không dùng được thuốc");
+                    return;
+                }
                 conn.p.item.remove(4, id_potion, 1);
                 if (conn.p.getlevelpercent() >= 500) {
                     conn.p.update_Exp(-(Level.entrys.get(conn.p.level - 1).exp / 2), false);

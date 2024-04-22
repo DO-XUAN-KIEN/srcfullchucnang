@@ -422,47 +422,120 @@ public class GameSrc {
         }
         switch (type) {
             case 0: {
-                Player p0 = Map.get_player_by_name(m2.reader().readUTF());
-                if (p0 != null) {
-                    if (p0.list_item_trade == null) {
-                        Message m = new Message(36);
-                        m.writer().writeByte(0);
-                        m.writer().writeUTF(conn.p.name);
-                        p0.conn.addmsg(m);
-                        m.cleanup();
-                    } else {
-                        Service.send_notice_box(conn, "Đối phương đang có giao dịch");
+                if (conn.p.banclone == 1) {
+                    if (conn.p.checkcoin() < 1_500_000) {
+                        Service.send_notice_box(conn, "Hãy bỏ 1,5tr coin để mở khóa giao dịch");
+                        return;
                     }
+                    conn.p.banclone = 0;
+                    int coin_ = 1_500_000;
+                    conn.p.update_coin(-coin_);
+                    conn.p.item.char_inventory(5);
+
+                    Player p0 = Map.get_player_by_name(m2.reader().readUTF());
+                    if (p0 != null) {
+                        if (p0.list_item_trade == null) {
+                            Message m = new Message(36);
+                            m.writer().writeByte(0);
+                            m.writer().writeUTF(conn.p.name);
+                            p0.conn.addmsg(m);
+                            m.cleanup();
+                        } else {
+                            Service.send_notice_box(conn, "Đối phương đang có giao dịch");
+                        }
+                    } else {
+                        Service.send_notice_box(conn, "Xảy ra lỗi");
+                    }
+                    break;
                 } else {
-                    Service.send_notice_box(conn, "Xảy ra lỗi");
+                    if (conn.p.checkcoin() < 100000) {
+                        Service.send_notice_box(conn, "Không đủ điều kiện 100k coin để giao dịch");
+                        return;
+                    }
+
+                    Player p0 = Map.get_player_by_name(m2.reader().readUTF());
+                    if (p0 != null) {
+                        if (p0.list_item_trade == null) {
+                            Message m = new Message(36);
+                            m.writer().writeByte(0);
+                            m.writer().writeUTF(conn.p.name);
+                            p0.conn.addmsg(m);
+                            m.cleanup();
+                        } else {
+                            Service.send_notice_box(conn, "Đối phương đang có giao dịch");
+                        }
+                    } else {
+                        Service.send_notice_box(conn, "Xảy ra lỗi");
+                    }
+                    break;
                 }
-                break;
             }
             case 1: {
-                Message m = new Message(36);
-                m.writer().writeByte(1);
-                Player p0 = Map.get_player_by_name(m2.reader().readUTF());
-                if (p0 == null) {
-                    return;
+                if (conn.p.banclone == 1) {
+                    if (conn.p.checkcoin() < 1_500_000) {
+                        Service.send_notice_box(conn, "Hãy bỏ 1,5tr coin để mở khóa giao dịch");
+                        return;
+                    }
+                    conn.p.banclone = 0;
+                    int coin_ = 1_500_000;
+                    conn.p.update_coin(-coin_);
+                    conn.p.item.char_inventory(5);
+
+                    Message m = new Message(36);
+                    m.writer().writeByte(1);
+                    Player p0 = Map.get_player_by_name(m2.reader().readUTF());
+                    if (p0 == null) {
+                        return;
+                    }
+                    m.writer().writeUTF(p0.name);
+                    conn.p.name_trade = p0.name;
+                    p0.name_trade = conn.p.name;
+                    conn.addmsg(m);
+                    m.cleanup();
+                    //
+                    m = new Message(36);
+                    m.writer().writeByte(1);
+                    m.writer().writeUTF(conn.p.name);
+                    p0.conn.addmsg(m);
+                    m.cleanup();
+                    p0.list_item_trade = new short[9];
+                    conn.p.list_item_trade = new short[9];
+                    for (int i = 0; i < conn.p.list_item_trade.length; i++) {
+                        conn.p.list_item_trade[i] = -1;
+                        p0.list_item_trade[i] = -1;
+                    }
+                    break;
+                } else {
+                    if (conn.p.checkcoin() < 100000) {
+                        Service.send_notice_box(conn, "Không đủ điều kiện 100k coin để giao dịch");
+                        return;
+                    }
+
+                    Message m = new Message(36);
+                    m.writer().writeByte(1);
+                    Player p0 = Map.get_player_by_name(m2.reader().readUTF());
+                    if (p0 == null) {
+                        return;
+                    }
+                    m.writer().writeUTF(p0.name);
+                    conn.p.name_trade = p0.name;
+                    p0.name_trade = conn.p.name;
+                    conn.addmsg(m);
+                    m.cleanup();
+                    //
+                    m = new Message(36);
+                    m.writer().writeByte(1);
+                    m.writer().writeUTF(conn.p.name);
+                    p0.conn.addmsg(m);
+                    m.cleanup();
+                    p0.list_item_trade = new short[9];
+                    conn.p.list_item_trade = new short[9];
+                    for (int i = 0; i < conn.p.list_item_trade.length; i++) {
+                        conn.p.list_item_trade[i] = -1;
+                        p0.list_item_trade[i] = -1;
+                    }
+                    break;
                 }
-                m.writer().writeUTF(p0.name);
-                conn.p.name_trade = p0.name;
-                p0.name_trade = conn.p.name;
-                conn.addmsg(m);
-                m.cleanup();
-                //
-                m = new Message(36);
-                m.writer().writeByte(1);
-                m.writer().writeUTF(conn.p.name);
-                p0.conn.addmsg(m);
-                m.cleanup();
-                p0.list_item_trade = new short[9];
-                conn.p.list_item_trade = new short[9];
-                for (int i = 0; i < conn.p.list_item_trade.length; i++) {
-                    conn.p.list_item_trade[i] = -1;
-                    p0.list_item_trade[i] = -1;
-                }
-                break;
             }
             case 2: {
                 Player p0 = Map.get_player_by_name(conn.p.name_trade);
@@ -1002,11 +1075,11 @@ public class GameSrc {
                     byte color_ = 0;
                     if (conn.ac_admin > 3 && Manager.BuffAdmin) {
                         color_ = 4;
-                    } else if (ran_ <= 20) {
+                    } else if (ran_ <= 10) {
                         color_ = 4;
-                    } else if (ran_ < 40) {
+                    } else if (ran_ < 20) {
                         color_ = 3;
-                    } else if (ran_ <= 70) {
+                    } else if (ran_ <= 50) {
                         color_ = 2;
                     } else if (ran_ <= 80) {
                         color_ = 1;
@@ -1103,14 +1176,14 @@ public class GameSrc {
                 Item3 it_temp = conn.p.item.bag3[id];
                 if (it_temp != null && it_temp.id >= 4587 && it_temp.id <= 4590 && it_temp.tier < 15) {
                     conn.p.id_Upgrade_Medal_Star = id;
-                    if (it_temp.tier < 15)
+                    if (it_temp.tier < 6){
                         UpgradeMedal(conn, (byte) 0);
-//                    }else{
-//                        MenuController.send_menu_select(conn,-101,new String[]{"Không = " + (Ratio_Upgrade_Medal[it_temp.tier] / 100) + "%",
-//                            "Đá krypton cấp 1 = " + ((Ratio_Upgrade_Medal[it_temp.tier] + Ratio_Upgrade_Medal[it_temp.tier] * 0.05) / 100) + "%",
-//                            "Đá krypton cấp 2 = " + ((Ratio_Upgrade_Medal[it_temp.tier] + Ratio_Upgrade_Medal[it_temp.tier] * 0.1) / 100) + "%",
-//                            "Đá krypton cấp 3 = " + ((Ratio_Upgrade_Medal[it_temp.tier] + Ratio_Upgrade_Medal[it_temp.tier] * 0.3) / 100) + "%"},(byte)0);
-//                    }
+                    }else{
+                        MenuController.send_menu_select(conn,-101,new String[]{"Không = " + (Ratio_Upgrade_Medal[it_temp.tier] / 100) + "%",
+                            "Đá krypton cấp 1 = " + ((Ratio_Upgrade_Medal[it_temp.tier] + Ratio_Upgrade_Medal[it_temp.tier] * 0.05) / 100) + "%",
+                            "Đá krypton cấp 2 = " + ((Ratio_Upgrade_Medal[it_temp.tier] + Ratio_Upgrade_Medal[it_temp.tier] * 0.1) / 100) + "%",
+                            "Đá krypton cấp 3 = " + ((Ratio_Upgrade_Medal[it_temp.tier] + Ratio_Upgrade_Medal[it_temp.tier] * 0.3) / 100) + "%"},(byte)0);
+                    }
                 } else
                     Service.send_notice_box(conn, "Trang bị không phù hợp hoặc đã đạt cấp tối đa!");
                 break;
@@ -1118,7 +1191,7 @@ public class GameSrc {
         }
     }
 
-    public static short[] Ratio_Upgrade_Medal = new short[]{10000, 10000, 10000, 10000, 10000, 10000, 2000, 2000, 2000, 2000, 1000, 800, 600, 500, 300, 50};
+    public static short[] Ratio_Upgrade_Medal = new short[]{10000, 10000, 10000, 10000, 10000, 10000, 5000, 5000, 3000, 2000, 1000, 800, 600, 500, 300, 50};
 
     public static void UpgradeMedal(Session conn, byte index) throws IOException {
         if (index > 3) {
@@ -1152,11 +1225,11 @@ public class GameSrc {
                 Service.send_notice_box(conn, "Chưa đủ " + ngoc_req + " ngọc");
                 return;
             }
-//            if(index >0 && conn.p.item.total_item_by_id(7,348 + index) < 1)
-//            {
-//                Service.send_notice_box(conn, "Bạn không đủ Đá krypton cấp "+index);
-//                return;
-//            }
+            if(index >0 && conn.p.item.total_item_by_id(7,348 + index) < 1)
+            {
+                Service.send_notice_box(conn, "Bạn không đủ Đá krypton cấp "+index);
+                return;
+            }
             conn.p.update_ngoc(-ngoc_req);
             for (int i = 5 * (it_temp.id - 4587); i < 5 * (it_temp.id - 4587) + 5; i++) {
                 short id_item_upgr = conn.p.medal_create_material[i];
@@ -1303,6 +1376,8 @@ public class GameSrc {
                         _st = Util.random(400, 600);
                     } else if (color_ == 4) {
                         _st = Util.random(600, 800);
+                    } else if(color_ == 5){
+                        _st = 5000;
                     }
                     it_temp.op.set(i, new Option(Util.random(0, 5), _st, it_temp.id));
                     Service.send_wear(conn.p);
@@ -2300,7 +2375,7 @@ public class GameSrc {
         }
     }
 
-    public static short[] Ratio_UpgradeItemStar = new short[]{3000, 3000, 3000, 2000, 2000, 1500, 1500, 500, 0};
+    public static short[] Ratio_UpgradeItemStar = new short[]{4000, 3500, 3000, 2500, 2000, 1500, 1200, 900, 600};
 
     public static void ActionsItemStar(Session conn, Message m) {
         try {
@@ -2379,7 +2454,7 @@ public class GameSrc {
                         conn.p.ChangeMaterialItemStar(conn.p.TypeItemStarCreate);
                         int ran = Util.random(100);
                         byte color = 0;
-                        if ((conn.ac_admin > 4 && Manager.BuffAdmin) || ran < 10)
+                        if ((conn.ac_admin > 4 && Manager.BuffAdmin) || ran < 5)
                             color = 5;
                         else if (ran < 20)//8
                             color = 4;

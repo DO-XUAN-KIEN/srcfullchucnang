@@ -187,18 +187,18 @@ public class Map implements Runnable {
                     break;
                 }
                 case 1: {
-//                    Npc.chat(this, Npc.CHAT_TOP, -49);
-//                    Npc.chat(this, Npc.CHAT_PHO_CHI_HUY, -37);
-//                    Npc.chat(this, Npc.CHAT_PHAP_SU, -36);
-//                    Npc.chat(this, Npc.CHAT_ZORO, -2);
-//                    Npc.chat(this, Npc.CHAT_AMAN, -7);
-//                    Npc.chat(this, Npc.CHAT_ODA, -81);
-//                    Npc.chat(this, Npc.CHAT_LISA, -3);
-//                    Npc.chat(this, Npc.CHAT_SOPHIA, -69);
-//                    Npc.chat(this, Npc.CHAT_HAMMER, -5);
-//                    Npc.chat(this, Npc.CHAT_ZULU, -8);
-//                    Npc.chat(this, Npc.CHAT_DOUBA, -4);
-//                    Npc.chat(this, Npc.CHAT_ANNA, -44);
+                    Npc.chat(this, Npc.CHAT_TOP, -49);
+                    Npc.chat(this, Npc.CHAT_PHO_CHI_HUY, -37);
+                    Npc.chat(this, Npc.CHAT_PHAP_SU, -36);
+                    Npc.chat(this, Npc.CHAT_ZORO, -2);
+                    Npc.chat(this, Npc.CHAT_AMAN, -7);
+                    Npc.chat(this, Npc.CHAT_ODA, -81);
+                    Npc.chat(this, Npc.CHAT_LISA, -3);
+                    Npc.chat(this, Npc.CHAT_SOPHIA, -69);
+                    Npc.chat(this, Npc.CHAT_HAMMER, -5);
+                    Npc.chat(this, Npc.CHAT_ZULU, -8);
+                    Npc.chat(this, Npc.CHAT_DOUBA, -4);
+                    Npc.chat(this, Npc.CHAT_ANNA, -44);
                     Npc.chat(this, Npc.CHAT_BXH, -49);
                     break;
                 }
@@ -1034,8 +1034,8 @@ public class Map implements Runnable {
     }
 
     public synchronized void drop_item(Player p, byte type, short id) throws IOException {
-        His_DelItem hist = new His_DelItem(p.name);
-        hist.Logger = "Vứt";
+//        His_DelItem hist = new His_DelItem(p.name);
+//        hist.Logger = "Vứt";
         switch (type) {
             case 3: {
                 Item3 temp = p.item.bag3[id];
@@ -1044,19 +1044,19 @@ public class Map implements Runnable {
                         Service.send_notice_box(p.conn, "Vật phẩm đã khóa");
                         return;
                     }
-                    hist.tem3 = temp;
-                    hist.Flus();
+//                    hist.tem3 = temp;
+//                    hist.Flus();
                     p.item.remove(3, id, 1);
                 }
                 break;
             }
             case 4:
             case 7: {
-                hist.tem47 = new Item47();
-                hist.tem47.id = id;
-                hist.tem47.category = type;
-                hist.tem47.quantity = (short) p.item.total_item_by_id(type, id);
-                hist.Flus();
+//                hist.tem47 = new Item47();
+//                hist.tem47.id = id;
+//                hist.tem47.category = type;
+//                hist.tem47.quantity = (short) p.item.total_item_by_id(type, id);
+//                hist.Flus();
                 p.item.remove(type, id, p.item.total_item_by_id(type, id));
                 break;
             }

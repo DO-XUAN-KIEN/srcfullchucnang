@@ -48,6 +48,7 @@ public class Body2 extends MainObject {
         switch (i) {
             case 1: {
                 point += p.point1 + get_plus_point(23);
+                //+(p.get_chuyensinh()*100)
                 break;
             }
             case 2: {

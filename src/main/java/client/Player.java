@@ -47,6 +47,9 @@ public class Player extends Body2 {
     public Date date;
     public byte diemdanh;
     public byte chucphuc;
+    public int banclone;
+    public long chuyensinh;
+    public int day_cs;
     // public int hieuchien;
     public int dibuon;
     public byte type_exp;
@@ -269,6 +272,11 @@ public class Player extends Body2 {
             if (skill_point[i] <= 0) {
                 continue;
             }
+            if(chuyensinh > 0){
+                kynang = 0;
+                skill_point = new byte[]{1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
+                return;
+            }
             LvSkill temp = skills[i].mLvSkill[skill_point[i] - 1];
             while (skill_point[i] > 0 && temp.LvRe > level) {
                 temp = skills[i].mLvSkill[(--skill_point[i]) - 1];
@@ -337,9 +345,12 @@ public class Player extends Body2 {
                 diemdanh = rs.getByte("diemdanh");
                 chucphuc = rs.getByte("chucphuc");
                 hieuchien = rs.getInt("hieuchien");
+                banclone = rs.getInt("banclone");
                 dibuon = rs.getInt("dibuon");
                 chuyencan = rs.getInt("chuyencan");
                 diemsukien = rs.getInt("diemsukien");
+                chuyensinh = rs.getLong("chuyensinh");
+                day_cs = rs.getInt("day_cs");
                 type_exp = rs.getByte("typeexp");
                 clazz = rs.getByte("clazz");
                 level = rs.getShort("level");
@@ -868,7 +879,14 @@ public class Player extends Body2 {
     public synchronized int get_ngoc() {
         return this.kimcuong;
     }
+    public synchronized int get_day_cs() {
+        return this.day_cs;
+    }
 
+
+    public synchronized long get_chuyensinh() {
+        return this.chuyensinh;
+    }
     public synchronized void update_vang(long i) {
         if ((i + vang) > 2__000_000_000_000_000L) {
             vang = 2__000_000_000_000_000L;
@@ -1230,10 +1248,13 @@ public class Player extends Body2 {
                 a += ",`kynang` = " + kynang;
                 a += ",`diemdanh` = " + diemdanh;
                 a += ",`chucphuc` = " + chucphuc;
+                a += ",`banclone` = " + banclone;
                 a += ",`hieuchien` = " + hieuchien;
                 a += ",`dibuon` = " + dibuon;
                 a += ",`chuyencan` = " + chuyencan;
                 a += ",`diemsukien` = " + diemsukien;
+                a += ",`chuyensinh` = " + chuyensinh;
+                a += ",`day_cs` = " + day_cs;
                 a += ",`typeexp` = " + type_exp;
                 a += ",`date` = '" + date.toString() + "'";
                 a += ",`point1` = " + point1;
@@ -1401,6 +1422,7 @@ public class Player extends Body2 {
             chucphuc = 1;
             point_active[0] = 10;
             point_active[1] = 0;
+            day_cs = 3;
             quest_daily = new int[]{-1, -1, 0, 0, 20};
             date = Date.from(Instant.now());
         }
@@ -2069,28 +2091,28 @@ public class Player extends Body2 {
             if (tiemnang >= value) {
                 switch (index) {
                     case 0: {
-                        if ((point1 + value) <= 32000) {
+                        if ((point1 + value) <= 50000) {
                             point1 += value;
                             tiemnang -= value;
                         }
                         break;
                     }
                     case 1: {
-                        if ((point2 + value) <= 32000) {
+                        if ((point2 + value) <= 50000) {
                             point2 += value;
                             tiemnang -= value;
                         }
                         break;
                     }
                     case 2: {
-                        if ((point3 + value) <= 32000) {
+                        if ((point3 + value) <= 50000) {
                             point3 += value;
                             tiemnang -= value;
                         }
                         break;
                     }
                     case 3: {
-                        if ((point4 + value) <= 32000) {
+                        if ((point4 + value) <= 50000) {
                             point4 += value;
                             tiemnang -= value;
                         }
@@ -2395,7 +2417,22 @@ public class Player extends Body2 {
         Log.gI().add_log(this.name,
                 "Login : [Vàng] : " + Util.number_format(this.vang) + " : [Ngọc] : " + Util.number_format(this.kimcuong));
     }
-
+    public synchronized void update_cs(long i){
+        chuyensinh += i;
+        try {
+            Message m = new Message(16);
+            m.writer().writeByte(0);
+            m.writer().writeByte(5);
+            m.writer().writeLong(this.get_vang());
+            m.writer().writeInt(this.get_ngoc());
+            m.writer().writeByte(5);
+            m.writer().writeByte(0);
+            conn.addmsg(m);
+            m.cleanup();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void update_wings_time() throws IOException {
         boolean check = false;
         for (int i = 0; i < item.bag3.length; i++) {

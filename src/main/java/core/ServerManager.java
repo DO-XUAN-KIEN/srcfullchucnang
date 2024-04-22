@@ -30,8 +30,8 @@ public class ServerManager implements Runnable {
     public long time_l;
     private long time2;
     private byte checkError;
-    private static final int HOUR_START_KING_CUP = 21;
-    private static final int MIN_START_KING_CUP = 15;
+    private static final int HOUR_START_KING_CUP = 18;
+    private static final int MIN_START_KING_CUP = 30;
     public ServerManager() {
         this.time = System.currentTimeMillis();
         this.time_l = System.currentTimeMillis() + 60_000L;
@@ -233,7 +233,7 @@ public class ServerManager implements Runnable {
                     //
                     checkError = 2;
                     if (min % 5 == 0 && sec == 0) {
-                        Manager.gI().chatKTGprocess("Bạn Đang Chơi Server" + " Kỷ nguyên hso " + "Chúc Bạn Chơi Game Vui Vẻ.");
+                        Manager.gI().chatKTGprocess("Bạn Đang Chơi Server" + " Hiệp Sĩ Khổng Lồ " + "Chúc Bạn Chơi Game Vui Vẻ.");
                     }
                     checkError = 5;
                     if (min % 4 == 0 && sec == 0) {
