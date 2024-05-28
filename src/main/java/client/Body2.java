@@ -273,7 +273,11 @@ public class Body2 extends MainObject {
         if (eff_ve_binh != null) {
             pie = pie / 10;
         }
-        return (int) (pie / 2.1);
+        int tt = (int)(pie / 2.1);
+        if (tt > 15000)
+            tt = 15000;
+        return tt;
+        //return (int) (pie / 2.1);
     }
 
     @Override
@@ -288,7 +292,11 @@ public class Body2 extends MainObject {
         if (eff_thien_su != null) {
             param = param / 10;
         }
-        return (int) (param / 2.1);
+        int phan = (int)(param / 2.1);
+        if (phan > 7000)
+            phan = 7000;
+        return phan;
+        //return (int) (param / 2.1);
     }
 
     @Override
@@ -302,7 +310,11 @@ public class Body2 extends MainObject {
         if (giam_ne) {
             param = param / 10 * 9;
         }
-        return (int) (param / 1.8);
+        int tile_ne = (int)(param / 1.5);
+        if (tile_ne > 7000)
+            tile_ne = 7000;
+        return tile_ne;
+       // return (int) (param / 1.8);
     }
 
     @Override
@@ -316,7 +328,11 @@ public class Body2 extends MainObject {
         if (eff_bach_kim != null) {
             crit = crit / 10;
         }
-        return (int) (crit / 2.1);
+        int cm = (int)(crit / 2.1);
+        if (cm > 15000)
+            cm = 15000;
+        return cm;
+        //return (int) (crit / 2.1);
     }
 
     public int get_skill_point(int i) {

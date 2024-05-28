@@ -8,6 +8,7 @@ import io.Session;
 
 public class Npc {
     public static String CHAT_MR_BALLARD = "Chiến trường bắt đầu vào 21h30 phút hàng ngày";
+    public static String CHAT_MR_BANANA = "Tao là để đổi quà trang bị 2";
     public static String CHAT_TOP = "Cám ơn các bạn đã like cho mình,hihi!";
     public static String CHAT_PHO_CHI_HUY = "Tao là để đi phó bản kiếm nguyên liệu tinh tú\n" +
             "Và còn chiếm thành bang hội nữa nhé";

@@ -1,5 +1,8 @@
 package core;
 
+import Helps.CheckItem;
+import Helps._Time;
+import Helps.medal;
 import History.His_DelItem;
 import java.time.LocalTime;
 import java.io.IOException;
@@ -9,6 +12,7 @@ import java.util.List;
 import client.Clan;
 import client.Pet;
 import client.Player;
+import ev_he.Event_2;
 import io.Message;
 import io.Session;
 import map.Eff_player_in_map;
@@ -840,7 +844,7 @@ public class Service {
             send_notice_box(conn, "Không đủ ngọc để thực hiện");
             return;
         }
-        if (conn.p.timeBlockCTG > Helps._Time.timeDay) {
+        if (conn.p.timeBlockCTG > _Time.timeDay) {
             send_notice_box(conn, "Bạn đã bị khóa CTG");
             return;
         }
@@ -1890,7 +1894,7 @@ public class Service {
                 if (idbuy > (ItemTemplate3.item.size() - 1)) {
                     return;
                 }
-                if (Helps.CheckItem.isBuyItemCoin(idbuy))//mua bằng coin
+                if (CheckItem.isBuyItemCoin(idbuy))//mua bằng coin
                 {
                     for (Itemsellcoin itsell3 : Itemsellcoin.entry) {
                         if (itsell3.id == idbuy) {
@@ -1921,7 +1925,7 @@ public class Service {
                     send_notice_box(p.conn, "Không tìm thấy vật phẩm!");
                     return;
                 }
-                if (Helps.CheckItem.isBuyItemCoin(idbuy))//mua bằng coin shop tt
+                if (CheckItem.isBuyItemCoin(idbuy))//mua bằng coin shop tt
                 {
                     for (Itemshoptt itsell3 : Itemshoptt.entry) {
                         if (itsell3.id == idbuy) {
@@ -1952,7 +1956,7 @@ public class Service {
                     send_notice_box(p.conn, "Không tìm thấy vật phẩm!");
                     return;
                 }
-                if (ev_he.Event_2.isBuyItemSK(p.conn, 3, idbuy, 1)) {
+                if (Event_2.isBuyItemSK(p.conn, 3, idbuy, 1)) {
                     return;
                 }
                 if (idbuy == 2943 || idbuy == 2944 || (idbuy == 4762 && Manager.gI().event == 2)) {
@@ -2306,6 +2310,38 @@ public class Service {
                         } else {
                             send_notice_box(conn, "Tối thiểu 5 ngọc!");
                         }
+                    }else if ((it.type >= 21 && it.type <= 28) || it.type == 55 || it.type == 102) {
+                        try {
+                            if (conn.p.item.total_item_by_id(4, 262) < 100) {
+                                Service.send_notice_box(conn, "Không đủ vật phẩm nâng cấp");
+                                return;
+                            }
+                            if (it.tier >= 100) {
+                                Service.send_notice_box(conn, "Vật phẩm đã được nâng cấp tối đa");
+                                return;
+                            }
+                            conn.p.item.remove(4, 262, 100);
+                            it.tier++;
+                            if (it != null) {
+                                for (int i = 0; i < it.op.size(); i++) {
+                                    Option op =it.op.get(i);
+                                    if (op != null && ((op.id >= 7 && op.id <= 13) || op.id == 15 || op.id == 27 || op.id == 28)) {
+                                        op.setParam(op.getParam(0)+100);
+                                    }
+                                    if (op != null && ((op.id >=29 && op.id <= 36) || (op.id >= 16 && op.id <= 22) || op.id == 41)) {
+                                        op.setParam(op.getParam(0)+200);
+                                    }
+                                    if (op != null && (op.id >=23 && op.id <= 26)) {
+                                        op.setParam(op.getParam(0)+2);
+                                    }
+                                }
+                            }
+                            conn.p.item.char_inventory(4);
+                            conn.p.item.char_inventory(3);
+                            Service.send_notice_box(conn, "Nâng cấp thành công " + it.name);
+                        } catch (Exception e) {}
+                    }else {
+                        Service.send_notice_box(conn,"Vật phẩm nâng cấp không phù hợp");
                     }
                     break;
                 }

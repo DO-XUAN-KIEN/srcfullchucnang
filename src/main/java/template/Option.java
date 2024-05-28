@@ -78,6 +78,40 @@ public class Option {
         }
         return parbuffer;
     }
+    public int getParamtb2(int tier) {
+        if ((id >= 100 && id <= 107)||(id >= 58 && id<=60)) {
+            return param;
+        }
+        //return param;
+        if (tier == 0) {
+            return param;
+        }
+        //
+        int parbuffer = this.param;
+
+        if (this.id >= 29 && this.id <= 36 || this.id >= 16 && this.id <= 22 || this.id == 41) {
+            parbuffer += 20 * tier;
+            return parbuffer;
+        }
+
+        if (this.id >= 23 && this.id <= 26) {
+            return (parbuffer + tier);
+        }
+        if (this.id == 42) {
+            return (parbuffer + tier * 400);
+        }
+        if ((this.id >= 7 && this.id <= 13) || this.id == 15 || this.id == 27 || this.id == 28) {
+            return (parbuffer + 500 * tier);
+        }
+        if ((this.id == 37 || this.id == 38) && tier < 9) {
+            return 1;
+        }
+        if ((this.id >= 0 && this.id <= 6) || this.id == 14 || this.id == 40) {
+            parbuffer = (parafterupdate[tier] * this.param) / 100;
+            return parbuffer;
+        }
+        return parbuffer;
+    }
 
     public int getParamMD(int tier) {
 //            if(tier>15)
@@ -96,20 +130,20 @@ public class Option {
 
         if (this.id == 81 || this.id == 86 || this.id == 88 || this.id == 77 || this.id == 79) // giây dòng vip
         {
-            return (int) (parbuffer * tier * 0.07);
+            return (int) (parbuffer * tier * 0.3);
         }
-        if (this.id == 85 || this.id == 87 || this.id == 80 || this.id == 82) // dòng vip
+        if (this.id == 85 || this.id == 87 || this.id == 80 || this.id == 82 ) // dòng vip
         {
-            return (int) (parbuffer * tier * 0.07);
+            return (int) (parbuffer * tier * 0.05);
         }
         if (this.id == 78 || this.id == 76) // dòng vip
         {
-            return (int) (parbuffer * tier * 0.07);
+            return (int) (parbuffer * tier * 0.05);
         }
 
         if ((this.id >= 76 && this.id <= 89) || this.id == 97 || this.id == 98 || this.id == 95) // dòng vip
         {
-            return (int) (parbuffer * tier * 0.07);
+            return (int) (parbuffer * tier * 0.05);
         }
         if (this.id >= 29 && this.id <= 36 || this.id >= 16 && this.id <= 22 || this.id == 41) {
             parbuffer += 50 * tier;

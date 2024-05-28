@@ -108,7 +108,7 @@ public class Manager {
      public static String BXH_level = "";
    
 
-    public static byte thue = 5;
+    public static byte thue = 0;
     public static String nameClanThue;
     public static Clan ClanThue;
     public static final List<String> PlayersWinCThanh = new ArrayList<>();
@@ -133,7 +133,7 @@ public class Manager {
     public static void ResetCThanh() {
         PlayersWinCThanh.clear();
         nameClanThue = null;
-        thue = 5;
+        thue = 0;
         ClanThue = null;
     }
 
@@ -679,7 +679,7 @@ public class Manager {
                 Mob_in_map mob = new Mob_in_map();
                 short id = Short.parseShort(jsar2.get(0).toString());
                 if (id == 101 || id == 84 || id == 83 || id == 103 || id == 104 || id == 105 || id == 106 || id == 149 || id == 155 || id == 173 || id == 174 || id == 190 || id == 195 || id == 196 || id == 197
-                        || id == 186 || id == 187 || id == 188){
+                        || id == 186 || id == 187 || id == 188 || id == 190){
                     continue;
                 }
                 mob.template = Mob.entrys.get(id);

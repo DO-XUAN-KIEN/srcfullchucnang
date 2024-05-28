@@ -14,6 +14,7 @@ import core.Service;
 import static core.Service.send_notice_nobox_white;
 
 import core.Util;
+import event_daily.KingCupManager;
 import event_daily.MoLy;
 import event_daily.ChienTruong;
 import io.Message;
@@ -537,9 +538,10 @@ public class MessageHandler {
         Service.send_skill(conn.p);
         Service.send_login_rms(conn);
         Service.send_notice_nobox_yellow(conn, ("Chào Mừng Bạn Đến Với Hiệp Sĩ Khổng Lồ !! ")); //Số người online : " + (Session.client_entrys.size() + 30)));
-        send_notice_nobox_white(conn, ("Số người online : " + (Session.client_entrys.size())));
-       //send_notice_nobox_white(conn, ("Bang " +  Manager.nameClanThue  + " Đang Sở Hữu  Quyền Thu Thuế Trên Toàn Sever " + " Thuế " + Manager.thue + " % "));
-       //  Service.send_notice_nobox_yellow(conn, ("Bang " + Manager.nameClanThue + " - Đang Là Bang Hùng Mạnh Nhất Thế Giới Hiệp Sĩ"));
+        send_notice_nobox_white(conn,("Hiện tại lôi đài đang đợt" + KingCupManager.TURN_KING_CUP));
+        send_notice_nobox_white(conn, ("Số người online : " + (Session.client_entrys.size() +10)));
+        send_notice_nobox_white(conn, ("Bang " +  Manager.nameClanThue  + " Đang Sở Hữu  Quyền Thu Thuế Trên Toàn Sever " + " Thuế " + Manager.thue + " % "));
+        Service.send_notice_nobox_yellow(conn, ("Bang " + Manager.nameClanThue + " - Đang Là Bang Hùng Mạnh Nhất Thế Giới Hiệp Sĩ"));
 
         // add x2 xp
         conn.p.set_x2_xp(1);

@@ -89,8 +89,8 @@ public class Mob_MoTaiNguyen extends MainObject{
             mm.writer().writeByte((byte) this.level);
             mm.writer().writeShort(this.x);
             mm.writer().writeShort(this.y);
-            mm.writer().writeInt(this.hp);
-            mm.writer().writeInt(this.hp_max);
+            mm.writer().writeLong(this.hp);
+            mm.writer().writeLong(this.hp_max);
             mm.writer().writeByte(0);
             mm.writer().writeInt(4);
             if (this.clan != null) {

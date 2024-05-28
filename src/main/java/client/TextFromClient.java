@@ -207,10 +207,10 @@ public class TextFromClient {
                 }
                 for (String txt : conn.p.giftcode) {
                     txt = txt.toLowerCase();
-                    if (txt.equals((text)) && conn.ac_admin < 4) {
-                        Service.send_notice_box(conn, "Bạn đã nhập giftcode này rồi");
-                        return;
-                    }
+//                    if (txt.equals((text)) && conn.ac_admin < 4) {
+//                        Service.send_notice_box(conn, "Bạn đã nhập giftcode này rồi");
+//                        return;
+//                    }
                 }
                 try (Connection connection = SQL.gI().getConnection(); Statement st = connection.createStatement(); ResultSet rs = st.executeQuery("SELECT * FROM `giftcode` WHERE `giftname` = '" + text + "';")) {
                     byte empty_box = (byte) 0;
@@ -225,7 +225,6 @@ public class TextFromClient {
                         if (limit < 1 && conn.ac_admin < 4) {
                             Service.send_notice_box(conn, "Đã hết lượt dùng giftcode này");
                         } else if (conn.p.item.get_bag_able() >= empty_box) {
-                            limit--;
                             conn.p.giftcode.add(text);
                             JSONArray jsar = (JSONArray) JSONValue.parse(rs.getString("item3"));
                             for (int i = 0; i < jsar.size(); i++) {
@@ -455,7 +454,11 @@ public class TextFromClient {
                     }
                     conn.p.level = (short) (levelchange - 1);
                     conn.p.exp = Level.entrys.get(levelchange - 2).exp - 1;
-                    conn.p.tiemnang = (short) (1 + Level.get_tiemnang_by_level(conn.p.level - 1));
+                    if(conn.p.chuyensinh >= 22 && conn.p.level >= 135){
+                        conn.p.tiemnang = 0;
+                    }else {
+                        conn.p.tiemnang = (short) (1 + Level.get_tiemnang_by_level(conn.p.level - 1));
+                    }
                     conn.p.kynang = (short) (1 + Level.get_kynang_by_level(conn.p.level - 1));
                     conn.p.point1 = (short) (4 + conn.p.level);
                     conn.p.point2 = (short) (4 + conn.p.level);
@@ -678,7 +681,7 @@ public class TextFromClient {
                     return;
                 }
                 int quant = Integer.parseInt(value);
-                if (quant > 2_000_000_000 || quant <= 0) {
+                if (quant > 10_000_000 || quant <= 0) {
                     Service.send_notice_box(conn, "Số lượng không hợp lệ!");
                     return;
                 }

@@ -37,6 +37,7 @@ public class Player extends Body2 {
     public final Session conn;
     //    public final int index;
     public boolean already_setup;
+    public boolean nhan = true;
     //    public String name;
     public Map map;
     public boolean is_changemap;
@@ -1604,7 +1605,7 @@ public class Player extends Body2 {
             while (exp >= Level.entrys.get(level - 1).exp && level < Manager.gI().lvmax) {
                 exp -= Level.entrys.get(level - 1).exp;
                 level++;
-                if ((tiemnang + point1 + point2 + point3 + point4) < 32000) {
+                if ((tiemnang + point1 + point2 + point3 + point4) < 2_000_000_000) {
                     point1++;
                     point2++;
                     point3++;
@@ -1612,7 +1613,11 @@ public class Player extends Body2 {
                     if (kynang < 10000) {
                         kynang += Level.entrys.get(level - 1).kynang;
                     }
-                    tiemnang += Level.entrys.get(level - 1).tiemnang;
+                    if(this.level >= 135 && this.chuyensinh > 21){
+                        tiemnang +=0;
+                    }else {
+                        tiemnang += Level.entrys.get(level - 1).tiemnang;
+                    }
                 }
             }
             if (level == Manager.gI().lvmax && exp >= Level.entrys.get(level - 1).exp) {
@@ -1677,6 +1682,9 @@ public class Player extends Body2 {
         }
         return result;
     }
+
+
+
     public synchronized boolean update_coin(int coin_exchange) throws IOException {
         String query = "SELECT `coin` FROM `account` WHERE `user` = '" + conn.user + "' LIMIT 1;";
         int coin_old = 0;
@@ -2091,28 +2099,28 @@ public class Player extends Body2 {
             if (tiemnang >= value) {
                 switch (index) {
                     case 0: {
-                        if ((point1 + value) <= 50000) {
+                        if ((point1 + value) <= 2_000_000_000) {
                             point1 += value;
                             tiemnang -= value;
                         }
                         break;
                     }
                     case 1: {
-                        if ((point2 + value) <= 50000) {
+                        if ((point2 + value) <= 2_000_000_000) {
                             point2 += value;
                             tiemnang -= value;
                         }
                         break;
                     }
                     case 2: {
-                        if ((point3 + value) <= 50000) {
+                        if ((point3 + value) <= 2_000_000_000) {
                             point3 += value;
                             tiemnang -= value;
                         }
                         break;
                     }
                     case 3: {
-                        if ((point4 + value) <= 50000) {
+                        if ((point4 + value) <= 2_000_000_000) {
                             point4 += value;
                             tiemnang -= value;
                         }
@@ -2418,7 +2426,6 @@ public class Player extends Body2 {
                 "Login : [Vàng] : " + Util.number_format(this.vang) + " : [Ngọc] : " + Util.number_format(this.kimcuong));
     }
     public synchronized void update_cs(long i){
-        chuyensinh += i;
         try {
             Message m = new Message(16);
             m.writer().writeByte(0);

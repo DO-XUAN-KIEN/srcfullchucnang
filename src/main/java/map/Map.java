@@ -188,6 +188,7 @@ public class Map implements Runnable {
                 }
                 case 1: {
                     Npc.chat(this, Npc.CHAT_TOP, -49);
+                    Npc.chat(this, Npc.CHAT_MR_BANANA, -1);
                     Npc.chat(this, Npc.CHAT_PHO_CHI_HUY, -37);
                     Npc.chat(this, Npc.CHAT_PHAP_SU, -36);
                     Npc.chat(this, Npc.CHAT_ZORO, -2);
@@ -666,50 +667,50 @@ public class Map implements Runnable {
                             MapService.send_msg_player_inside(this, p, m, true);
                             m.cleanup();
                         }
-                        it = p.item.wear[19];
-                        if (it != null && p.time_eff_wear < System.currentTimeMillis()) {
-                            p.time_eff_wear = System.currentTimeMillis() + 5000L;
-                            Message m = new Message(-49);
-                            m.writer().writeByte(2);
-                            m.writer().writeShort(0);
-                            m.writer().writeByte(0);
-                            m.writer().writeByte(0);
-                            switch (it.id) {
-                                case 4776:
-                                case 4777:
-                                case 4778:
-                                case 4779:
-                                case 4780:
-                                case 4781:
-                                case 4782:
-                                case 4783:
-
-                                case 4775: {
-                                    byte eff_ = 37;
-                                    if (it.tier == 15) {
-                                        eff_ = 37;
-                                    }
-                                    m.writer().writeByte(eff_);
-                                    break;
-
-                                }
-                                default: {
-                                    byte eff_ = 51;
-                                    if (it.tier == 15) {
-                                        eff_ = 51;
-                                    }
-                                    m.writer().writeByte(eff_);
-                                    break;
-                                }
-                            }
-                            m.writer().writeShort(p.index);
-                            m.writer().writeByte(0);
-                            m.writer().writeByte(0);
-                            m.writer().writeInt(5000);
-                            MapService.send_msg_player_inside(this, p, m, true);
-                            m.cleanup();
-
-                        }
+//                        it = p.item.wear[19];
+//                        if (it != null && p.time_eff_wear < System.currentTimeMillis()) {
+//                            p.time_eff_wear = System.currentTimeMillis() + 5000L;
+//                            Message m = new Message(-49);
+//                            m.writer().writeByte(2);
+//                            m.writer().writeShort(0);
+//                            m.writer().writeByte(0);
+//                            m.writer().writeByte(0);
+//                            switch (it.id) {
+//                                case 4776:
+//                                case 4777:
+//                                case 4778:
+//                                case 4779:
+//                                case 4780:
+//                                case 4781:
+//                                case 4782:
+//                                case 4783:
+//
+//                                case 4775: {
+//                                    byte eff_ = 37;
+//                                    if (it.tier == 15) {
+//                                        eff_ = 37;
+//                                    }
+//                                    m.writer().writeByte(eff_);
+//                                    break;
+//
+//                                }
+//                                default: {
+//                                    byte eff_ = 51;
+//                                    if (it.tier == 15) {
+//                                        eff_ = 51;
+//                                    }
+//                                    m.writer().writeByte(eff_);
+//                                    break;
+//                                }
+//                            }
+//                            m.writer().writeShort(p.index);
+//                            m.writer().writeByte(0);
+//                            m.writer().writeByte(0);
+//                            m.writer().writeInt(5000);
+//                            MapService.send_msg_player_inside(this, p, m, true);
+//                            m.cleanup();
+//
+//                        }
                     }
                 } catch (Exception eee) {
                 }
@@ -858,7 +859,25 @@ public class Map implements Runnable {
             p.conn.addmsg(m);
             m.cleanup();
         }
-
+        if (this.map_id == 1) {
+            m = new Message(-50);
+            m.writer().writeByte(1);
+            m.writer().writeUTF("Ms Phó gài");
+            m.writer().writeUTF("Giao Tiếp");
+            m.writer().writeByte(-1);// id npc
+            m.writer().writeByte(55);   // icon
+            m.writer().writeShort(690); // x
+            m.writer().writeShort(360); // y
+            m.writer().writeByte(1);
+            m.writer().writeByte(1);
+            m.writer().writeByte(2);
+            m.writer().writeByte(47); // icon 2
+            m.writer().writeUTF("thích gì có đó");
+            m.writer().writeByte(1);
+            m.writer().writeByte(0);
+            p.conn.addmsg(m);
+            m.cleanup();
+        }
         if (this.map_id == 1) {
             m = new Message(-63);
             m.writer().writeShort(288);
@@ -895,7 +914,6 @@ public class Map implements Runnable {
             p.conn.addmsg(m);
             m.cleanup();
         }
-
         // monument
         if (this.map_id == 1) {
             m = new Message(-96);

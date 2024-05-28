@@ -21,6 +21,7 @@ public class Wedding {
 	public String name_2;
 	public Item3 it;
 	public long exp;
+	public Player p;
 
 	@SuppressWarnings("unchecked")
 	public synchronized static void add_new(int quant, Player p, Player p0) throws IOException {
@@ -77,7 +78,7 @@ public class Wedding {
 			}
 			js2.add(js22);
 			st.execute(String.format(query, "'" + js.toJSONString() + "'", "'" + js2.toJSONString() + "'"));
-                        connection.commit();
+			connection.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			p.conn.close();

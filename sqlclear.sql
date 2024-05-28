@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 -- Dumping data for table hsofull.account: ~1 rows (approximately)
 DELETE FROM `account`;
 INSERT INTO `account` (`id`, `user`, `pass`, `ac_admin`, `char`, `status`, `lock`, `coin`, `coin_old`, `phone`, `email`, `ip`, `last_ip`, `tiennap`, `pass2`, `naptuan`, `tongnap`, `tongthang`, `otp`, `expiration_otp`, `token`, `create_time`, `tichdiem`, `admin_web`, `online`) VALUES
-	(1, 'admin', '1', 30, '["phapsu"]', 0, 0, 0, 0, '0', '', '', '14.191.167.215', 0, '0', 0, 0, 0, NULL, NULL, NULL, '2024-03-28 10:41:40', '0', 0, 0);
+	(1, 'admin', '1', 30, '["phapsu"]', 1, 0, 0, 0, '0', '', '', '14.191.167.215', 0, '0', 0, 0, 0, NULL, NULL, NULL, '2024-03-28 10:41:40', '0', 0, 0);
 
 -- Dumping structure for table hsofull.cards
 CREATE TABLE IF NOT EXISTS `cards` (

@@ -55,6 +55,7 @@ public class BossManager {
             case 186: return 109;
             case 187: return 110;
             case 188: return 111;
+            case 190: return 0;
             default:
                 throw new AssertionError();
         }
@@ -91,28 +92,31 @@ public class BossManager {
             case 186: return new short[]{ 450,432};
             case 187: return new short[]{ 450,432};
             case 188: return new short[]{ 450,432};
+            case 190: return new short[]{696, 486};
             default:
                 throw new AssertionError();
         }
     }
     public static void init(){
         int idx = 10_000;
-        int[] ids = new int[]{101 , 84 , 83 ,103 ,104 ,105 , 106, 149 , 155, 174, 173, 195, 196, 197, 186, 187, 188};
+        int[] ids = new int[]{101 , 84 , 83 ,103 ,104 ,105 , 106, 149 , 155, 174, 173, 195, 196, 197, 186, 187, 188, 190};
         for(int id : ids){
             for(int i=0; i<5;i++){
-                if(id == 174){
-                    if(i == 1 || i == 4 || Manager.gI().event != 2) continue;
+                if(id == 190){
+                    if(i == 1 || i == 2 || i == 3 || i == 4 || i == 5) continue;
                 }
                 Mob m = Mob.entrys.get(id);
                 Mob_in_map temp = new Mob_in_map();
                 temp.template = m;
                 temp.x = GetSite(id)[0];
                 temp.y = GetSite(id)[1];
-                temp.level = id == 174? 150: m.level;
+                temp.level = id == 190? 150: m.level;
                 temp.Set_isBoss(true);
                 temp.hp = temp.Set_hpMax(id == 174? (500_000_000 * (i+1)) : m.hpmax );
                 if(id == 174)
                     temp.timeBossRecive = 1000 * 60 * 60 * 4;
+                else if(id == 190)
+                    temp.timeBossRecive = 1000 * 60 *60 * 8;
                 else
                     temp.timeBossRecive = 1000 * 60 * 60 * 6;
                 temp.map_id = GetIdMap(id);
