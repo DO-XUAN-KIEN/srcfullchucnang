@@ -49,10 +49,12 @@ public class Player extends Body2 {
     public byte diemdanh;
     public byte chucphuc;
     public int banclone;
-    public long chuyensinh;
+    public int chuyensinh;
     public int day_cs;
     // public int hieuchien;
-    public int dibuon;
+    public long dibuon;
+    public int boss;
+    public long dicuop;
     public byte type_exp;
     //    public byte clazz;
 //    public short level;
@@ -347,10 +349,12 @@ public class Player extends Body2 {
                 chucphuc = rs.getByte("chucphuc");
                 hieuchien = rs.getInt("hieuchien");
                 banclone = rs.getInt("banclone");
-                dibuon = rs.getInt("dibuon");
+                dibuon = rs.getLong("dibuon");
+                dicuop = rs.getLong("dicuop");
+                boss = rs.getInt("boss");
                 chuyencan = rs.getInt("chuyencan");
                 diemsukien = rs.getInt("diemsukien");
-                chuyensinh = rs.getLong("chuyensinh");
+                chuyensinh = rs.getInt("chuyensinh");
                 day_cs = rs.getInt("day_cs");
                 type_exp = rs.getByte("typeexp");
                 clazz = rs.getByte("clazz");
@@ -1252,6 +1256,8 @@ public class Player extends Body2 {
                 a += ",`banclone` = " + banclone;
                 a += ",`hieuchien` = " + hieuchien;
                 a += ",`dibuon` = " + dibuon;
+                a += ",`dicuop` = " + dicuop;
+                a += ",`boss` = " + boss;
                 a += ",`chuyencan` = " + chuyencan;
                 a += ",`diemsukien` = " + diemsukien;
                 a += ",`chuyensinh` = " + chuyensinh;
@@ -1655,6 +1661,10 @@ public class Player extends Body2 {
             m.cleanup();
         }
         byte zone = m2.reader().readByte();
+        Map map_change = Map.get_map_by_id(this.map.map_id)[zone];
+        if (zone == 5 && !conn.p.isKnight() && !conn.p.isRobber() && !conn.p.isTrader() && map_change.is_map_buon()) {
+            return;
+        }
         if (zone < this.map.maxzone || (conn.p.item.wear[11] != null && (conn.p.item.wear[11].id == 3599
                 || conn.p.item.wear[11].id == 3593 || conn.p.item.wear[11].id == 3596))) {
             if (zone != this.map.zone_id) {
@@ -2099,28 +2109,28 @@ public class Player extends Body2 {
             if (tiemnang >= value) {
                 switch (index) {
                     case 0: {
-                        if ((point1 + value) <= 2_000_000_000) {
+                        if ((point1 + value) <= 32_000) {
                             point1 += value;
                             tiemnang -= value;
                         }
                         break;
                     }
                     case 1: {
-                        if ((point2 + value) <= 2_000_000_000) {
+                        if ((point2 + value) <= 32_000) {
                             point2 += value;
                             tiemnang -= value;
                         }
                         break;
                     }
                     case 2: {
-                        if ((point3 + value) <= 2_000_000_000) {
+                        if ((point3 + value) <= 32_000) {
                             point3 += value;
                             tiemnang -= value;
                         }
                         break;
                     }
                     case 3: {
-                        if ((point4 + value) <= 2_000_000_000) {
+                        if ((point4 + value) <= 32_000) {
                             point4 += value;
                             tiemnang -= value;
                         }
@@ -2561,7 +2571,6 @@ public class Player extends Body2 {
     public boolean isTrader() {
         return item.wear[11] != null && item.wear[11].id >= 3599 && item.wear[11].id <= 3601;
     }
-
     public boolean isSonTinh() {
         return item.wear[11] != null && item.wear[11].id == 4585;
     }

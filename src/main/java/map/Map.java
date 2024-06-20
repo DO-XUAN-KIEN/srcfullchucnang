@@ -1441,6 +1441,10 @@ public class Map implements Runnable {
     public boolean isMapChienTruong() {
         return map_id >= 53 && map_id <= 61;
     }
+    public boolean is_map_buon() {
+        return map_id == 8 || map_id == 7 || (map_id >= 15 && map_id <= 18) || (map_id >= 20 && map_id <= 25) || map_id == 33
+                || map_id == 34 || (map_id >= 37 && map_id <= 39) || (map_id >= 42 && map_id <= 45) || map_id == 52;
+    }
 
     public boolean isMapLangPhuSuong() {
         return map_id == 125 || map_id == 127 || map_id == 129 || map_id == 132;

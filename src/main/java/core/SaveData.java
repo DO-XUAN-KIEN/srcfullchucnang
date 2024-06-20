@@ -346,6 +346,90 @@ public class SaveData {
                 BXH.BXH_Buon.add(temp);
             }
             ro.close();
+
+            BXH.BXH_Cuop.clear();
+            ps = conn.prepareStatement(
+                    "SELECT `id`, `level`, `name`, `body`, `itemwear`, `dicuop` FROM `player` WHERE `dicuop` > 10 ORDER BY  dicuop DESC LIMIT 20;");
+            ro = ps.executeQuery();
+            while (ro.next()) {
+
+
+                Memin4 temp = new Memin4();
+                temp.level = ro.getShort("level");
+                temp.dicuop= ro.getInt("dicuop");
+                temp.name = ro.getString("name");
+                JSONArray jsar = (JSONArray) JSONValue.parse(ro.getString("body"));
+                if (jsar == null) {
+                    return;
+                }
+                temp.head = Byte.parseByte(jsar.get(0).toString());
+                temp.hair = Byte.parseByte(jsar.get(2).toString());
+                temp.eye = Byte.parseByte(jsar.get(1).toString());
+                jsar.clear();
+                jsar = (JSONArray) JSONValue.parse(ro.getString("itemwear"));
+                if (jsar == null) {
+                    return;
+                }
+                temp.itemwear = new ArrayList<>();
+                for (int i3 = 0; i3 < jsar.size(); i3++) {
+                    JSONArray jsar2 = (JSONArray) JSONValue.parse(jsar.get(i3).toString());
+                    byte index_wear = Byte.parseByte(jsar2.get(9).toString());
+                    if (index_wear != 0 && index_wear != 1 && index_wear != 6 && index_wear != 7 && index_wear != 10) {
+                        continue;
+                    }
+                    Part_player temp2 = new Part_player();
+                    temp2.type = Byte.parseByte(jsar2.get(2).toString());
+                    temp2.part = Byte.parseByte(jsar2.get(6).toString());
+                    temp.itemwear.add(temp2);
+                }
+                temp.clan = Clan.get_clan_of_player(temp.name);
+                String percents
+                        = String.format("%.0f", (((float) temp.dicuop)));
+                temp.info = "Level : " + (temp.level) + "\t-\t" + percents +" ";
+                BXH.BXH_Cuop.add(temp);
+            }
+            ro.close();
+
+            BXH.BXH_Boss.clear();
+            ps = conn.prepareStatement(
+                    "SELECT `id`, `level`, `name`, `body`, `itemwear`, `boss` FROM `player` WHERE `boss` > 10 ORDER BY  boss DESC LIMIT 20;");
+            ro = ps.executeQuery();
+            while (ro.next()) {
+                Memin4 temp = new Memin4();
+                temp.level = ro.getShort("level");
+                temp.boss= ro.getInt("boss");
+                temp.name = ro.getString("name");
+                JSONArray jsar = (JSONArray) JSONValue.parse(ro.getString("body"));
+                if (jsar == null) {
+                    return;
+                }
+                temp.head = Byte.parseByte(jsar.get(0).toString());
+                temp.hair = Byte.parseByte(jsar.get(2).toString());
+                temp.eye = Byte.parseByte(jsar.get(1).toString());
+                jsar.clear();
+                jsar = (JSONArray) JSONValue.parse(ro.getString("itemwear"));
+                if (jsar == null) {
+                    return;
+                }
+                temp.itemwear = new ArrayList<>();
+                for (int i3 = 0; i3 < jsar.size(); i3++) {
+                    JSONArray jsar2 = (JSONArray) JSONValue.parse(jsar.get(i3).toString());
+                    byte index_wear = Byte.parseByte(jsar2.get(9).toString());
+                    if (index_wear != 0 && index_wear != 1 && index_wear != 6 && index_wear != 7 && index_wear != 10) {
+                        continue;
+                    }
+                    Part_player temp2 = new Part_player();
+                    temp2.type = Byte.parseByte(jsar2.get(2).toString());
+                    temp2.part = Byte.parseByte(jsar2.get(6).toString());
+                    temp.itemwear.add(temp2);
+                }
+                temp.clan = Clan.get_clan_of_player(temp.name);
+                String percents
+                        = String.format("%.0f", (((float) temp.boss)));
+                temp.info = "Level : " + (temp.level) + "\t-\t" + percents +" ";
+                BXH.BXH_Boss.add(temp);
+            }
+            ro.close();
 //            
             BXH.BXH_ds.clear();
             ps = conn.prepareStatement(

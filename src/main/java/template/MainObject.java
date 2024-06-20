@@ -355,12 +355,12 @@ public class MainObject {
             if (ObjAtk == null || focus == null || ObjAtk.equals(focus) || ObjAtk.isDie || ObjAtk.isStunes(true)) {
                 return;
             }
-            if (focus.isMobDiBuon() && ObjAtk.isPlayer() && ((Player) ObjAtk).isTrader() && ((Pet_di_buon) focus).type == 131) {
-                return;
-            }
-            if (focus.isMobDiBuon() && ObjAtk.isPlayer() && ((Player) ObjAtk).isRobber() && ((Pet_di_buon) focus).type == 132) {
-                return;
-            }
+//            if (focus.isMobDiBuon() && ObjAtk.isPlayer() && ((Player) ObjAtk).isTrader() && ((Pet_di_buon) focus).type == 131) {
+//                return;
+//            }
+//            if (focus.isMobDiBuon() && ObjAtk.isPlayer() && ((Player) ObjAtk).isRobber() && ((Pet_di_buon) focus).type == 132) {
+//                return;
+//            }
             if (ObjAtk.isPlayer() && focus.isPlayer() && !map.isMapChiemThanh() && (map.ismaplang || ObjAtk.level < 11 || focus.level < 11
                     || (ObjAtk.typepk != 0 && ObjAtk.typepk == focus.typepk) || ObjAtk.hieuchien > 320_000)) {
                 return;
@@ -401,6 +401,14 @@ public class MainObject {
                     Service.send_notice_box(((Player) ObjAtk).conn, "Đối phương đang được pet bảo vệ");
                     return;
                 }
+//                if (((Player) ObjAtk).get_vang() < 1_000_000){
+//                    Service.send_notice_box(((Player) ObjAtk).conn, "Không đủ vàng");
+//                    return;
+//                }
+//                if (((Player) ObjAtk).getlevelpercent() == 0){
+//                    Service.send_notice_box(((Player) ObjAtk).conn, "Không đủ exp");
+//                    return;
+//                }
                 ObjAtk.hieuchien += 1;
             }
             //</editor-fold>

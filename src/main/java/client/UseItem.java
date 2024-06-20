@@ -158,10 +158,18 @@ public class UseItem {
                 break;
             }
             case 6: {
+                if(conn.p.chuyensinh >= 15){
+                    Service.send_notice_box(conn,"quá 15 lần cs ko cho tẩy");
+                    return;
+                }
                 Service.send_box_input_yesno(conn, 125, "Hãy xác nhận bạn muốn tẩy tiềm năng");
                 break;
             }
             case 7: {
+                if(conn.p.chuyensinh >= 15){
+                    Service.send_notice_box(conn,"quá 15 lần cs ko cho tẩy");
+                    return;
+                }
                 Service.send_box_input_yesno(conn, 124, "Hãy xác nhận bạn muốn tẩy kỹ năng");
                 break;
             }

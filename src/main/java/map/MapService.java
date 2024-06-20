@@ -52,6 +52,13 @@ public class MapService {
             // if (map.map_id != 48) {
             if (map.zone_id == map.maxzone && !map.isMapLoiDai() && !map.isMapChiemThanh()) {
                 MapService.change_flag(map, p, -1);
+                if (p.isTrader()) {
+                    p.typepk = 13;
+                } else if (p.isRobber()) {
+                    p.typepk = 12;
+                } else {
+                    p.typepk = -1;
+                }
             }
             map.send_map_data(p);
             Service.send_char_main_in4(p);

@@ -15,13 +15,7 @@ import java.util.ArrayList;
 
 import map.Map;
 import map.MapService;
-import template.EffTemplate;
-import template.Item3;
-import template.Kham_template;
-import template.MainObject;
-import template.Option;
-import template.Option_pet;
-import template.StrucEff;
+import template.*;
 
 /**
  * @author chien
@@ -661,6 +655,8 @@ public class Body2 extends MainObject {
                         p.list_enemies.remove(0);
                     }
                 }
+//                pATK.update_vang(-1_000_000);f
+//                pATK.update_Exp((long) -(pATK.exp * 0.1), false);
                 MapService.SendChat(map, p, "Thằng ranh con này tí bố online bố sút cho không trượt phát nào ><", true);
             }
         }

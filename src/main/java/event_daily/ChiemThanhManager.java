@@ -525,11 +525,7 @@ public class ChiemThanhManager {
         CloseMap();
         try{
             Manager.gI().chatKTGprocess("Chiếm thành đã kết thúc "+ (NameClan != null && !NameClan.isEmpty() ? " bang "+NameClan : " không bang nào") +" chiếm được thành");
-            if(NameClan != null && !NameClan.isEmpty()) {
-                Manager.ClanThue.update_vang(1_000_000_000);
-                Manager.ClanThue.update_ngoc(10_000);
-                Manager.gI().chatKTGprocess("Chúc mừng bang " + NameClan + " nhận được 1b vàng and 10k ngọc");
-            }
+
         }
         catch(IOException e){}
     }

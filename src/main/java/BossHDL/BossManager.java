@@ -118,7 +118,7 @@ public class BossManager {
                 else if(id == 190)
                     temp.timeBossRecive = 1000 * 60 *60 * 8;
                 else
-                    temp.timeBossRecive = 1000 * 60 * 60 * 6;
+                    temp.timeBossRecive = 1000 * 60 * 60 * 3;
                 temp.map_id = GetIdMap(id);
                 temp.zone_id = (byte)i;
                 temp.index = idx++;

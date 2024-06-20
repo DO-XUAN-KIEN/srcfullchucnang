@@ -173,6 +173,7 @@ public class Squire extends Player {
             point2 = rs.getShort("point2");
             point3 = rs.getShort("point3");
             point4 = rs.getShort("point4");
+            //chuyensinh = rs.getInt("chuyensinh");
             skill_point = new byte[21];
             time_delay_skill = new long[21];
             jsar = (JSONArray) JSONValue.parse(rs.getString("skill"));
@@ -506,6 +507,7 @@ public class Squire extends Player {
                 a += ",`point2` = " + point2;
                 a += ",`point3` = " + point3;
                 a += ",`point4` = " + point4;
+                //a += ",`chuyensinh` = " + chuyensinh;
                 a += ",`point_arena` = " + pointarena;
                 if (ps.executeUpdate("UPDATE `squire` SET " + a + " WHERE `id` = " + this.index + ";") > 0) {
                     connection.commit();

@@ -123,7 +123,7 @@ public class MenuController {
                 break;
             }
             case -32: {
-                menu = new String[]{"Xem BXH Level", "Xem BXH bang", "Xem BXH Chiến trường", "Xem BXH Đi Buôn", "Xem BXH Hiếu Chiến"};
+                menu = new String[]{"Xem BXH Level", "Xem BXH bang", "Xem BXH Chiến trường", "Xem BXH Đi Buôn" , "Xem BXH Đi Cướp" , "Xem BXH Đi Boss", "Xem BXH Hiếu Chiến"};
                 break;
             }
             case -21: { // blackeye
@@ -2126,6 +2126,7 @@ public class MenuController {
                         //
                         Pet_di_buon_manager.remove(conn.p.pet_di_buon.name);
                         conn.p.pet_di_buon = null;
+                        conn.p.dicuop += vang_recei;
                         Service.send_notice_box(conn, "Nhận được " + vang_recei + " vàng!");
                     } else {
                         Service.send_notice_box(conn, "Chưa cướp được gì cả, thật kém cỏi!");
@@ -2219,7 +2220,7 @@ public class MenuController {
                         //
                         Pet_di_buon_manager.remove(conn.p.pet_di_buon.name);
                         conn.p.pet_di_buon = null;
-                        conn.p.dibuon += 1;
+                        conn.p.dibuon += (vang_recei/1000);
                         Service.send_notice_box(conn, "Nhận được " + vang_recei + " vàng!");
                     } else {
                         Service.send_notice_box(conn, "Ngươi chưa có gì mà hay bị cướp mất hết hàng rồi!");
@@ -3863,6 +3864,14 @@ public class MenuController {
                 break;
             }
             case 4: {
+                BXH.send2(conn, 1);
+                break;
+            }
+            case 5: {
+                BXH.send2(conn, 2);
+                break;
+            }
+            case 6: {
                 BXH.send3(conn, 0);
                 break;
             }

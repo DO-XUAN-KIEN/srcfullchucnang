@@ -390,6 +390,7 @@ public class LeaveItemMap {
                 case 190: { //boss làng nhỏ
                     id_item_leave7 = new short[]{(short) Util.random(472, 480),495};
                     id_item_leave = new short[] {262,328};
+                    p.boss += 1;
                     break;
                 }
             }
